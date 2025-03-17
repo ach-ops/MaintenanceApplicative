@@ -10,7 +10,7 @@ public class Game implements IGame {
    private final boolean[] inPenaltyBox = new boolean[6];
 
    private final Map<String, LinkedList<String>> questions = new HashMap<>();
-   private static final String[] CATEGORIES = {"Pop", "Science", "Sports", "Rock"};
+   private static final String[] CATEGORIES = {"Pop", "Science", "Sports", "Rock", "Geography"};
 
    private int currentPlayer = 0;
    private boolean isGettingOutOfPenaltyBox;
@@ -24,10 +24,15 @@ public class Game implements IGame {
          questions.get("Science").add("Science Question " + i);
          questions.get("Sports").add("Sports Question " + i);
          questions.get("Rock").add("Rock Question " + i);
+         questions.get("Geography").add("Geography Question " + i);
       }
    }
 
    public boolean add(String playerName) {
+      if (players.size() >= 6) {
+         System.out.println("Maximum number of players (6) reached.");
+         return false;
+      }
       players.add(playerName);
       int playerIndex = players.size() - 1;
       places[playerIndex] = 1;
@@ -39,7 +44,16 @@ public class Game implements IGame {
       return true;
    }
 
+   public boolean canStartGame() {
+      return players.size() >= 2;
+   }
+
    public void roll(int roll) {
+      if (!canStartGame()) {
+         System.out.println("At least 2 players are required to start the game.");
+         return;
+      }
+
       log(players.get(currentPlayer) + " is the current player");
       log("They have rolled a " + roll);
 
