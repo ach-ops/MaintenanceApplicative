@@ -1,3 +1,4 @@
+package OldCalendar;
 import java.time.LocalDateTime;
 
 public class Event {
@@ -11,7 +12,7 @@ public class Event {
     public int frequenceJours; // uniquement pour PERIODIQUE
 
     public Event(String type, String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes,
-                 String lieu, String participants, int frequenceJours) {
+				 String lieu, String participants, int frequenceJours) {
         this.type = type;
         this.title = title;
         this.proprietaire = proprietaire;
