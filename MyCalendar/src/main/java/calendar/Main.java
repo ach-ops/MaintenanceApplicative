@@ -78,7 +78,8 @@ public class Main {
                 System.out.println("5 - Ajouter un événement hebdomadaire");
                 System.out.println("6 - Ajouter un événement annuel");
                 System.out.println("7 - Voir les événements d'une période");
-                System.out.println("8 - Se déconnecter");
+                System.out.println("8 - Supprimer un événement par son ID");
+                System.out.println("9 - Se déconnecter");
                 System.out.print("Votre choix : ");
 
                 String choix = scanner.nextLine();
@@ -105,6 +106,9 @@ public class Main {
                         voirEvenementsDansPeriode(scanner, calendar);
                         break;
                     case "8":
+                        supprimerEvenementParId(scanner, calendar);
+                        break;
+                    case "9":
                         utilisateur = null;
                         break;
                 }
@@ -131,5 +135,13 @@ public class Main {
             resultats.forEach(e -> System.out.println("- " + e.description()));
         }
     }
+
+    private static void supprimerEvenementParId(Scanner scanner, CalendarManager calendar) {
+        System.out.print("Entrez l'identifiant de l'événement à supprimer : ");
+        String id = scanner.nextLine().trim();
+        calendar.supprimerEvent(new EventId(id));
+        System.out.println("Événement supprimé.");
+    }
+
 
 }

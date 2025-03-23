@@ -21,7 +21,7 @@ public class EventManager {
 		int duree = Integer.parseInt(scanner.nextLine());
 
 		calendar.ajouterEvent(new RendezVous(
-				new EventId(utilisateur + "_rdv"),
+				new EventId(utilisateur + "_rdv_" + UUID.randomUUID()),
 				new TitreEvenement(titre),
 				new DateEvenement(date),
 				new DureeEvenement(duree),
@@ -42,7 +42,7 @@ public class EventManager {
 		int duree = Integer.parseInt(scanner.nextLine());
 
 		calendar.ajouterEvent(new Reunion(
-				new EventId(utilisateur + "_reunion"),
+				new EventId(utilisateur + "_reunion" + UUID.randomUUID()),
 				new TitreEvenement(titre),
 				new DateEvenement(date),
 				new DureeEvenement(duree),
@@ -62,7 +62,7 @@ public class EventManager {
 		LocalDateTime dateTime = date.atStartOfDay();
 
 		calendar.ajouterEvent(new EvenementPeriodique(
-				new EventId(utilisateur + "_periodique"),
+				new EventId(utilisateur + "_periodique" + UUID.randomUUID()),
 				new TitreEvenement(titre),
 				new DateEvenement(dateTime),
 				new DureeEvenement(30),

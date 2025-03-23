@@ -148,6 +148,40 @@ class CalendarManagerTest {
 		assertEquals("RDV A", result.get(0).getTitre().value());
 	}
 
+	@Test
+	void peutSupprimerUnEvenementParId() {
+		CalendarManager calendar = new CalendarManager();
+
+		EventId id = new EventId("suppr-1");
+
+		Event rdv = new RendezVous(
+				id,
+				new TitreEvenement("Suppression Test"),
+				new DateEvenement(LocalDateTime.of(2025, 6, 15, 10, 0)),
+				new DureeEvenement(60),
+				new Proprietaire("Achraf")
+		);
+
+		calendar.ajouterEvent(rdv);
+
+		// Vérifier qu'il est bien présent
+		List<Event> avant = calendar.eventsDansPeriode(
+				new DateEvenement(LocalDateTime.of(2025, 6, 1, 0, 0)),
+				new DateEvenement(LocalDateTime.of(2025, 6, 30, 23, 59))
+		);
+		assertEquals(1, avant.size());
+
+		// Supprimer l'événement
+		calendar.supprimerEvent(id);
+
+		List<Event> apres = calendar.eventsDansPeriode(
+				new DateEvenement(LocalDateTime.of(2025, 6, 1, 0, 0)),
+				new DateEvenement(LocalDateTime.of(2025, 6, 30, 23, 59))
+		);
+		assertEquals(0, apres.size());
+	}
+
+
 
 
 }
