@@ -15,4 +15,16 @@ public class RendezVous extends Event {
 		return this.date.chevauche(this.duree, autre.getDate(), autre.getDuree());
 	}
 
+	@Override
+	public EventDto toDto() {
+		EventDto dto = new EventDto();
+		dto.id = this.id;
+		dto.titre = this.titre;
+		dto.date = this.date;
+		dto.duree = this.duree;
+		dto.proprietaire = this.proprietaire;
+		dto.type = this.getClass().getSimpleName();
+		return dto;
+	}
+
 }

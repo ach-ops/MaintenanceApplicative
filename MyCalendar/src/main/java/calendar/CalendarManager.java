@@ -4,6 +4,10 @@ import java.util.List;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.io.File;
+import java.io.IOException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class CalendarManager {
     private final Map<EventId, Event> events = new HashMap<>();
@@ -35,6 +39,38 @@ public class CalendarManager {
     public void afficherEvenements() {
         events.values().forEach(event ->
                 System.out.println("[" + event.getId().value() + "] " + event.description()));
+    }
+
+    public void exporterVersJson(String chemin) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        List<EventDto> dtos = events.values().stream()
+                .map(Event::toDto)
+                .toList();
+
+        try {
+            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(chemin), dtos);
+            System.out.println("Événements exportés dans : " + chemin);
+        } catch (IOException e) {
+            System.err.println("Erreur export JSON : " + e.getMessage());
+        }
+    }
+
+    public void importerDepuisJson(String chemin) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        try {
+            EventDto[] dtos = mapper.readValue(new File(chemin), EventDto[].class);
+            for (EventDto dto : dtos) {
+                Event event = EventDtoFactory.toEvent(dto);
+                this.ajouterEvent(event);
+            }
+            System.out.println("Événements importés depuis : " + chemin);
+        } catch (IOException e) {
+            System.err.println("Erreur import JSON : " + e.getMessage());
+        }
     }
 
 }

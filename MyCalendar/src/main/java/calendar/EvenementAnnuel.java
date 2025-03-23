@@ -46,4 +46,17 @@ public class EvenementAnnuel extends Event {
 
 		return occurrences;
 	}
+
+	@Override
+	public EventDto toDto() {
+		EventDto dto = new EventDto();
+		dto.id = this.id;
+		dto.titre = this.titre;
+		dto.date = this.date;
+		dto.duree = this.duree;
+		dto.proprietaire = this.proprietaire;
+		dto.type = this.getClass().getSimpleName();
+		return dto;
+	}
+
 }

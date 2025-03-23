@@ -51,4 +51,16 @@ public class EvenementHebdomadaire extends Event {
 				.anyMatch(o -> o.getDate().chevauche(o.getDuree(), autre.getDate(), autre.getDuree()));
 	}
 
+	@Override
+	public EventDto toDto() {
+		EventDto dto = new EventDto();
+		dto.id = this.id;
+		dto.titre = this.titre;
+		dto.date = this.date;
+		dto.duree = this.duree;
+		dto.proprietaire = this.proprietaire;
+		dto.type = this.getClass().getSimpleName();
+		return dto;
+	}
+
 }
