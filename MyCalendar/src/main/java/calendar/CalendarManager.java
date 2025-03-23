@@ -9,7 +9,16 @@ public class CalendarManager {
     private final Map<EventId, Event> events = new HashMap<>();
 
     public void ajouterEvent(Event event) {
+        boolean enConflit = events.values().stream()
+                .anyMatch(e -> e.estEnConflitAvec(event));
+
+        if (enConflit) {
+            System.out.println("Conflit détecté : cet événement chevauche un autre événement existant !");
+            return;
+        }
+
         events.put(event.getId(), event);
+        System.out.println("Événement ajouté au calendrier.");
     }
 
     public void supprimerEvent(EventId id) {

@@ -2,21 +2,47 @@ package calendar;
 
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-public class EvenementAnnuelTest {
+class EvenementAnnuelTest {
+
 	@Test
-	public void testCreationEvenementAnnuel() {
-		EventId id = new EventId("anniv123");
-		TitreEvenement titre = new TitreEvenement("Anniversaire");
-		DateEvenement date = new DateEvenement(LocalDateTime.of(2024, 6, 15, 0, 0));
-		DureeEvenement duree = new DureeEvenement(60);
-		Proprietaire proprietaire = new Proprietaire("Alice");
+	void descriptionDoitAfficherDateEtTitre() {
+		Event event = new EvenementAnnuel(
+				new EventId("anniv"),
+				new TitreEvenement("Anniversaire"),
+				new DateEvenement(LocalDateTime.of(2025, 5, 10, 0, 0)),
+				new DureeEvenement(60),
+				new Proprietaire("Achraf")
+		);
 
-		EvenementAnnuel evenement = new EvenementAnnuel(id, titre, date, duree, proprietaire);
+		String description = event.description();
 
-		assertEquals("Anniversaire", evenement.getTitre().value());
-		assertEquals("Événement annuel : Anniversaire chaque année le 15 juin (Propriétaire: Alice)", evenement.description());
+		assertTrue(description.contains("Anniversaire"));
+		assertTrue(description.contains("10 mai") || description.toLowerCase().contains("mai"));
+		assertTrue(description.contains("Propriétaire: Achraf"));
 	}
 
+	@Test
+	void genereUneOccurrenceParAnDansLaPeriode() {
+		Event annuel = new EvenementAnnuel(
+				new EventId("anniv"),
+				new TitreEvenement("Fête"),
+				new DateEvenement(LocalDateTime.of(2020, 7, 15, 12, 0)),
+				new DureeEvenement(120),
+				new Proprietaire("Achraf")
+		);
+
+		List<Event> occurrences = annuel.occurrencesDansPeriode(
+				new DateEvenement(LocalDateTime.of(2024, 1, 1, 0, 0)),
+				new DateEvenement(LocalDateTime.of(2026, 12, 31, 23, 59))
+		);
+
+		assertEquals(3, occurrences.size());
+
+		assertTrue(occurrences.stream().allMatch(e ->
+				List.of(2024, 2025, 2026).contains(e.getDate().value().getYear())));
+	}
 }

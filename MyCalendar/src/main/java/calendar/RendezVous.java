@@ -9,4 +9,10 @@ public class RendezVous extends Event {
 	public String description() {
 		return "Rendez-vous : " + titre.value() + " le " + date.value() + " (Propriétaire: " + proprietaire.value() + ")";
 	}
+
+	@Override
+	public boolean estEnConflitAvec(Event autre) {
+		return this.date.chevauche(this.duree, autre.getDate(), autre.getDuree());
+	}
+
 }

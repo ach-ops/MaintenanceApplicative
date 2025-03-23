@@ -73,7 +73,9 @@ public class Main {
                 System.out.println("2 - Ajouter un rendez-vous");
                 System.out.println("3 - Ajouter une réunion");
                 System.out.println("4 - Ajouter un événement périodique");
-                System.out.println("5 - Se déconnecter");
+                System.out.println("5 - Ajouter un événement hebdomadaire");
+                System.out.println("6 - Ajouter un événement annuel");
+                System.out.println("7 - Se déconnecter");
                 System.out.print("Votre choix : ");
 
                 String choix = scanner.nextLine();
@@ -91,6 +93,12 @@ public class Main {
                         eventManager.ajouterEvenementPeriodique(scanner, utilisateur);
                         break;
                     case "5":
+                        eventManager.ajouterEvenementHebdomadaire(scanner, utilisateur);
+                        break;
+                    case "6":
+                        eventManager.ajouterEvenementAnnuel(scanner, utilisateur);
+                        break;
+                    case "7":
                         utilisateur = null;
                         break;
                 }

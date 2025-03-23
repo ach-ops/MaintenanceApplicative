@@ -16,4 +16,10 @@ public class Reunion extends Event {
 	public String description() {
 		return "Réunion : " + titre.value() + " avec " + participants.value() + " à " + lieu.value() + " (Propriétaire: " + proprietaire.value() + ")";
 	}
+
+	@Override
+	public boolean estEnConflitAvec(Event autre) {
+		return this.date.chevauche(this.duree, autre.getDate(), autre.getDuree());
+	}
+
 }
