@@ -1,10 +1,9 @@
 package calendar;
 
-import org.junit.Test;
-
 import java.time.LocalDateTime;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.Assert.assertTrue;
 
 public class EventConflitTest {
 
