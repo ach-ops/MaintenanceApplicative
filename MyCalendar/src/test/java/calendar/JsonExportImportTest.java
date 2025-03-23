@@ -2,6 +2,7 @@ package calendar;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class JsonExportImportTest {
 				new Proprietaire("Achraf")
 		));
 
-		String chemin = "test-events.json";
+		String chemin = "data/test-events.json";
 		original.exporterVersJson(chemin);
 
 		CalendarManager restored = new CalendarManager();
@@ -34,5 +35,31 @@ public class JsonExportImportTest {
 		assertEquals(1, events.size());
 		assertEquals("Dentiste", events.get(0).getTitre().value());
 	}
+
+	@Test
+	void peutExporterEvenementEnJson() {
+		CalendarManager calendar = new CalendarManager();
+
+		calendar.ajouterEvent(new RendezVous(
+				new EventId("ev-export-only"),
+				new TitreEvenement("Test Export"),
+				new DateEvenement(LocalDateTime.of(2025, 7, 15, 9, 30)),
+				new DureeEvenement(45),
+				new Proprietaire("Achraf")
+		));
+
+		String chemin = "data/test_export_event.json";
+		File fichier = new File(chemin);
+
+		if (fichier.exists()) {
+			fichier.delete();
+		}
+
+		calendar.exporterVersJson("test_export_event");
+
+		assert fichier.exists() : "Le fichier JSON n'a pas été créé !";
+		assert fichier.length() > 0 : "Le fichier JSON est vide !";
+	}
+
 
 }

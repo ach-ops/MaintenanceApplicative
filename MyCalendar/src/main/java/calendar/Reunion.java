@@ -24,17 +24,10 @@ public class Reunion extends Event {
 
 	@Override
 	public EventDto toDto() {
-		EventDto dto = new EventDto();
-		dto.id = this.id;
-		dto.titre = this.titre;
-		dto.date = this.date;
-		dto.duree = this.duree;
-		dto.proprietaire = this.proprietaire;
-		dto.type = this.getClass().getSimpleName();
+		EventDto dto = toBaseDto();
 		dto.lieu = this.lieu;
 		dto.participants = this.participants;
 		return dto;
 	}
-
 
 }

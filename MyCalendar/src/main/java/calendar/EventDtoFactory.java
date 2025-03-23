@@ -2,10 +2,6 @@ package calendar;
 
 public class EventDtoFactory {
 
-	public static EventDto toDto(Event event) {
-		return event.toDto();
-	}
-
 	public static Event toEvent(EventDto dto) {
 		EventId id = dto.id;
 		TitreEvenement titre = dto.titre;

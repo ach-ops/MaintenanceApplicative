@@ -1,0 +1,21 @@
+[ {
+  "id" : {
+    "value" : "ev-export-only"
+  },
+  "titre" : {
+    "value" : "Test"
+  },
+  "date" : {
+    "value" : "2025-07-15T09:30:00"
+  },
+  "duree" : {
+    "value" : 45
+  },
+  "proprietaire" : {
+    "value" : "Achraf"
+  },
+  "type" : "RendezVous",
+  "lieu" : null,
+  "participants" : null,
+  "frequence" : null
+} ]

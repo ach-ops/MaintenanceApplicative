@@ -79,7 +79,9 @@ public class Main {
                 System.out.println("6 - Ajouter un événement annuel");
                 System.out.println("7 - Voir les événements d'une période");
                 System.out.println("8 - Supprimer un événement par son ID");
-                System.out.println("9 - Se déconnecter");
+                System.out.println("9 - Exporter les événements en JSON");
+                System.out.println("10 - Importer les événements depuis un fichier JSON");
+                System.out.println("11 - Se déconnecter");
                 System.out.print("Votre choix : ");
 
                 String choix = scanner.nextLine();
@@ -109,6 +111,13 @@ public class Main {
                         supprimerEvenementParId(scanner, calendar);
                         break;
                     case "9":
+                        exporterDepuisConsole(scanner, calendar);
+                        break;
+
+                    case "10":
+                        importerDepuisConsole(scanner, calendar);
+                        break;
+                    case "11":
                         utilisateur = null;
                         break;
                 }
@@ -141,6 +150,18 @@ public class Main {
         String id = scanner.nextLine().trim();
         calendar.supprimerEvent(new EventId(id));
         System.out.println("Événement supprimé.");
+    }
+
+    private static void importerDepuisConsole(Scanner scanner, CalendarManager calendar) {
+        System.out.print("Nom du fichier JSON à importer : ");
+        String fichierImport = scanner.nextLine().trim();
+        calendar.importerDepuisJson(fichierImport);
+    }
+
+    private static void exporterDepuisConsole(Scanner scanner, CalendarManager calendar) {
+        System.out.print("Nom du fichier JSON à exporter : ");
+        String fichierExport = scanner.nextLine().trim();
+        calendar.exporterVersJson(fichierExport);
     }
 
 

@@ -58,5 +58,17 @@ public abstract class Event implements EventSerializable{
 
     public abstract boolean estEnConflitAvec(Event autre);
 
+    protected EventDto toBaseDto() {
+        EventDto dto = new EventDto();
+        dto.id = this.id;
+        dto.titre = this.titre;
+        dto.date = this.date;
+        dto.duree = this.duree;
+        dto.proprietaire = this.proprietaire;
+        dto.type = this.getClass().getSimpleName();
+        return dto;
+    }
+
+
 
 }
