@@ -29,11 +29,10 @@ public class EvenementHebdomadaire extends Event {
 
 		while (!current.isAfter(fin.value())) {
 			if (!current.isBefore(debut.value())) {
-				DateEvenement currentDate = new DateEvenement(current);
 				occurrences.add(new EvenementHebdomadaire(
 						new EventId(id.value() + "_" + current.toLocalDate()),
 						titre,
-						currentDate,
+						new DateEvenement(current),
 						duree,
 						proprietaire
 				));
@@ -43,6 +42,7 @@ public class EvenementHebdomadaire extends Event {
 
 		return occurrences;
 	}
+
 
 	@Override
 	public boolean estEnConflitAvec(Event autre) {

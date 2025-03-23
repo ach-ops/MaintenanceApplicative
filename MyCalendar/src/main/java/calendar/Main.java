@@ -1,4 +1,6 @@
 package calendar;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Main {
@@ -75,7 +77,8 @@ public class Main {
                 System.out.println("4 - Ajouter un événement périodique");
                 System.out.println("5 - Ajouter un événement hebdomadaire");
                 System.out.println("6 - Ajouter un événement annuel");
-                System.out.println("7 - Se déconnecter");
+                System.out.println("7 - Voir les événements d'une période");
+                System.out.println("8 - Se déconnecter");
                 System.out.print("Votre choix : ");
 
                 String choix = scanner.nextLine();
@@ -99,6 +102,9 @@ public class Main {
                         eventManager.ajouterEvenementAnnuel(scanner, utilisateur);
                         break;
                     case "7":
+                        voirEvenementsDansPeriode(scanner, calendar);
+                        break;
+                    case "8":
                         utilisateur = null;
                         break;
                 }
@@ -106,14 +112,24 @@ public class Main {
         }
     }
 
-    private static void afficherListe(List<Event> evenements) {
-        if (evenements.isEmpty()) {
+    private static void voirEvenementsDansPeriode(Scanner scanner, CalendarManager calendar) {
+        System.out.print("Date de début (AAAA-MM-JJ) : ");
+        LocalDateTime debut = LocalDate.parse(scanner.nextLine()).atStartOfDay();
+
+        System.out.print("Date de fin (AAAA-MM-JJ) : ");
+        LocalDateTime fin = LocalDate.parse(scanner.nextLine()).atTime(23, 59);
+
+        List<Event> resultats = calendar.eventsDansPeriode(
+                new DateEvenement(debut),
+                new DateEvenement(fin)
+        );
+
+        if (resultats.isEmpty()) {
             System.out.println("Aucun événement trouvé pour cette période.");
         } else {
-            System.out.println("Événements trouvés : ");
-            for (Event e : evenements) {
-                System.out.println("- " + e.description());
-            }
+            System.out.println("Événements trouvés :");
+            resultats.forEach(e -> System.out.println("- " + e.description()));
         }
     }
+
 }
