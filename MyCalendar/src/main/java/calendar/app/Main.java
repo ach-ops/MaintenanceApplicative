@@ -1,4 +1,9 @@
-package calendar;
+package calendar.app;
+import calendar.evenement.Event;
+import calendar.evenement.EventManager;
+import calendar.objet.DateEvenement;
+import calendar.objet.EventId;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;

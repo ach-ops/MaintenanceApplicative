@@ -1,4 +1,6 @@
-package calendar;
+package calendar.evenement;
+
+import calendar.objet.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

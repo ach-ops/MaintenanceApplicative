@@ -1,4 +1,4 @@
-package calendar;
+package calendar.objet;
 
 public record FrequenceEvenement(int jours) {
 	public FrequenceEvenement {

@@ -1,6 +1,6 @@
-package calendar;
+package calendar.evenement;
 
-import java.time.LocalDateTime;
+import calendar.objet.*;
 
 public class EventDto {
 	public EventId id;

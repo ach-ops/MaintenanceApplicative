@@ -1,5 +1,9 @@
 package calendar;
 
+import calendar.evenement.Event;
+import calendar.evenement.EventDto;
+import calendar.objet.*;
+
 import java.util.Objects;
 
 public class Reunion extends Event {

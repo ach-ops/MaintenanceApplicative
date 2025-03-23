@@ -1,4 +1,8 @@
-package calendar;
+package calendar.evenement;
+
+import calendar.RendezVous;
+import calendar.Reunion;
+import calendar.objet.*;
 
 public class EventDtoFactory {
 

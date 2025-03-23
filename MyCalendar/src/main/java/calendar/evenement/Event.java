@@ -1,9 +1,11 @@
-package calendar;
+package calendar.evenement;
+
+import calendar.objet.*;
 
 import java.util.Objects;
 import java.util.List;
 
-public abstract class Event implements EventSerializable{
+public abstract class Event implements EventSerializable {
     protected final EventId id;
     protected final TitreEvenement titre;
     protected final DateEvenement date;

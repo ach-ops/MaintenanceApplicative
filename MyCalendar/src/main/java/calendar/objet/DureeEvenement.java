@@ -1,4 +1,4 @@
-package calendar;
+package calendar.objet;
 
 public record DureeEvenement(int value) {
 	public DureeEvenement {

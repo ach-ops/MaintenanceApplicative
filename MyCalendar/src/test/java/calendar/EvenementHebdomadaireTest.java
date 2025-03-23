@@ -1,5 +1,8 @@
 package calendar;
 
+import calendar.evenement.EvenementHebdomadaire;
+import calendar.evenement.Event;
+import calendar.objet.*;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.util.List;

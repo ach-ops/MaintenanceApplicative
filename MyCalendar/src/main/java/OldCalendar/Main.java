@@ -1,16 +1,8 @@
 package OldCalendar;
-import calendar.CalendarManager;
-import calendar.Event;
-
-import java.time.LocalDateTime;
-import java.time.temporal.WeekFields;
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
 /*
 public class Main {
     public static void main(String[] args) {
-        calendar.CalendarManager calendar = new CalendarManager();
+        calendar.app.CalendarManager calendar = new CalendarManager();
         Scanner scanner = new Scanner(System.in);
         String utilisateur = null;
         boolean continuer = true;
@@ -255,7 +247,7 @@ public class Main {
         }
     }
 
-    private static void afficherListe(List<calendar.Event> evenements) {
+    private static void afficherListe(List<calendar.evenement.Event> evenements) {
         if (evenements.isEmpty()) {
             System.out.println("Aucun événement trouvé pour cette période.");
         } else {

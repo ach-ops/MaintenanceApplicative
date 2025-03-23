@@ -1,10 +1,9 @@
 package OldCalendar;
-import calendar.Event;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-/*
+
 public class CalendarManager {
     //Pour le commit
     public List<Event> events;
@@ -57,4 +56,4 @@ public class CalendarManager {
             System.out.println(e.description());
         }
     }
-}*/
+}

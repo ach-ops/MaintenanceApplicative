@@ -1,4 +1,4 @@
-package calendar;
+package calendar.app;
 
 import java.util.List;
 
@@ -6,9 +6,16 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.io.File;
 import java.io.IOException;
+
+import calendar.evenement.Event;
+import calendar.evenement.EventDto;
+import calendar.evenement.EventDtoFactory;
+import calendar.objet.DateEvenement;
+import calendar.objet.EventId;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 
 public class CalendarManager {
     private final Map<EventId, Event> events = new HashMap<>();

@@ -1,9 +1,12 @@
-package calendar;
+package calendar.objet;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public record DateEvenement(LocalDateTime value) {
+	public static final DateEvenement MIN = new DateEvenement(LocalDateTime.MIN);
+	public static final DateEvenement MAX = new DateEvenement(LocalDateTime.MAX);
+
 	public DateEvenement {
 		Objects.requireNonNull(value, "La date ne peut pas être null");
 	}

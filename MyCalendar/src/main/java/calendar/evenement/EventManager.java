@@ -1,4 +1,9 @@
-package calendar;
+package calendar.evenement;
+
+import calendar.app.CalendarManager;
+import calendar.RendezVous;
+import calendar.Reunion;
+import calendar.objet.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

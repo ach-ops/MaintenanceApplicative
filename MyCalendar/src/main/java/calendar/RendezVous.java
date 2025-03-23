@@ -1,5 +1,9 @@
 package calendar;
 
+import calendar.evenement.Event;
+import calendar.evenement.EventDto;
+import calendar.objet.*;
+
 public class RendezVous extends Event {
 	public RendezVous(EventId id, TitreEvenement titre, DateEvenement date, DureeEvenement duree, Proprietaire proprietaire) {
 		super(id, titre, date, duree, proprietaire);

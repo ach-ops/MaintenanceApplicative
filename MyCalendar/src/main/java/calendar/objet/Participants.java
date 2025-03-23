@@ -1,4 +1,4 @@
-package calendar;
+package calendar.objet;
 
 import java.util.Objects;
 public record Participants(String value) {
