@@ -116,5 +116,38 @@ class CalendarManagerTest {
 		assertTrue(result.stream().anyMatch(e -> e.getTitre().value().equals("Anniversaire")));
 	}
 
+	@Test
+	void detecteConflitEntreDeuxRendezVous() {
+		CalendarManager calendar = new CalendarManager();
+
+		Event rdv1 = new RendezVous(
+				new EventId("rdv1"),
+				new TitreEvenement("RDV A"),
+				new DateEvenement(LocalDateTime.of(2025, 6, 10, 14, 0)),
+				new DureeEvenement(60),
+				new Proprietaire("Achraf")
+		);
+
+		Event rdv2 = new RendezVous(
+				new EventId("rdv2"),
+				new TitreEvenement("RDV B"),
+				new DateEvenement(LocalDateTime.of(2025, 6, 10, 14, 30)), // chevauche le précédent
+				new DureeEvenement(30),
+				new Proprietaire("Achraf")
+		);
+
+		calendar.ajouterEvent(rdv1);
+		calendar.ajouterEvent(rdv2); // doit être refusé
+
+		List<Event> result = calendar.eventsDansPeriode(
+				new DateEvenement(LocalDateTime.of(2025, 6, 10, 0, 0)),
+				new DateEvenement(LocalDateTime.of(2025, 6, 10, 23, 59))
+		);
+
+		assertEquals(1, result.size()); // Le second événement n'est pas ajouté à cause du conflit
+		assertEquals("RDV A", result.get(0).getTitre().value());
+	}
+
+
 
 }

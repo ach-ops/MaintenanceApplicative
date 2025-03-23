@@ -9,35 +9,23 @@ public class CalendarManager {
     private final Map<EventId, Event> events = new HashMap<>();
 
     public void ajouterEvent(Event event) {
-        boolean enConflit = events.values().stream()
-                .anyMatch(e ->
-                        e.estEnConflitAvec(event) || event.estEnConflitAvec(e)
-                );
+        Optional<Event> conflit = events.values().stream()
+                .filter(e -> e.estEnConflitAvec(event) || event.estEnConflitAvec(e))
+                .findFirst();
 
-        if (enConflit) {
-            System.out.println("Conflit détecté : cet événement chevauche un autre événement existant !");
+        if (conflit.isPresent()) {
+            System.out.println("Conflit détecté avec l'événement : " + conflit.get().description());
             return;
         }
 
         events.put(event.getId(), event);
-        System.out.println(" Événement ajouté au calendrier.");
-    }
-
-
-    public void supprimerEvent(EventId id) {
-        events.remove(id);
+        System.out.println("Événement ajouté au calendrier.");
     }
 
     public List<Event> eventsDansPeriode(DateEvenement debut, DateEvenement fin) {
         return events.values().stream()
                 .flatMap(event -> event.occurrencesDansPeriode(debut, fin).stream())
                 .collect(Collectors.toList());
-    }
-
-
-
-    public boolean conflit(Event e1, Event e2) {
-        return e1.getDate().chevauche(e1.getDuree(), e2.getDate(), e2.getDuree());
     }
 
     public void afficherEvenements() {
