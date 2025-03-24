@@ -15,19 +15,21 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 public class CalendarManager {
     private final ListeEvenements listeEvenements = new ListeEvenements(new ArrayList<>());
 
-    public void ajouterEvent(Event event) {
+    public boolean ajouterEvent(Event event) {
         Optional<Event> conflit = listeEvenements.getAll().stream()
                 .filter(e -> e.estEnConflitAvec(event) || event.estEnConflitAvec(e))
                 .findFirst();
 
         if (conflit.isPresent()) {
             System.out.println("Conflit détecté avec l'événement : " + conflit.get().description());
-            return;
+            return false;
         }
 
         listeEvenements.ajouter(event);
         System.out.println("Événement ajouté au calendrier.");
+        return true;
     }
+
 
     public boolean supprimerEvent(EventId eventId) {
         return listeEvenements.supprimerEvenement(eventId);

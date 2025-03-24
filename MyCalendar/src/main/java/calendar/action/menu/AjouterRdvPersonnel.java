@@ -54,8 +54,14 @@ public class AjouterRdvPersonnel implements Action<Boolean> {
 				new Proprietaire(utilisateur)
 		);
 
-		calendar.ajouterEvent(rdv);
-		System.out.println("Rendez-vous personnel ajouté !");
+		boolean added = calendar.ajouterEvent(rdv);
+
+		if (!added) {
+			System.out.println("L'événement n'a pas été ajouté.");
+		} else {
+			System.out.println("Rendez-vous personnel ajouté !");
+		}
+
 		return true;
 	}
 

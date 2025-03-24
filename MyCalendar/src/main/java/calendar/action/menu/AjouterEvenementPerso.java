@@ -44,16 +44,23 @@ public class AjouterEvenementPerso implements Action<Boolean> {
 			System.out.print("Durée (en minutes) : ");
 			int duree = Integer.parseInt(scanner.nextLine());
 
-			calendar.ajouterEvent(new EvenementPersonnalise(
+			EvenementPersonnalise evenementPersonnalise = new EvenementPersonnalise(
 					new EventId(utilisateur.identifiant() + "_" + type.toLowerCase() + "_" + UUID.randomUUID()),
 					new TitreEvenement(titre),
 					new DateEvenement(LocalDateTime.of(annee, mois, jour, heure, minute)),
 					new DureeEvenement(duree),
 					new Proprietaire(utilisateur),
 					type
-			));
+			);
 
-			System.out.println("Événement '" + type + "' ajouté !");
+			boolean added = calendar.ajouterEvent(evenementPersonnalise);
+
+			if (!added) {
+				System.out.println("L'événement n'a pas été ajouté en raison d'un conflit.");
+			} else {
+				System.out.println("Événement '" + type + "' ajouté !");
+			}
+
 			return true;
 
 		} catch (Exception e) {

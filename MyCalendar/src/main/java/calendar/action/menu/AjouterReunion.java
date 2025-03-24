@@ -69,8 +69,15 @@ public class AjouterReunion implements Action<Boolean> {
 				participants
 		);
 
+		boolean added = calendar.ajouterEvent(reunion);
+
 		calendar.ajouterEvent(reunion);
-		System.out.println("Réunion ajoutée !");
+		if (!added) {
+			System.out.println("L'événement n'a pas été ajouté.");
+		} else {
+			System.out.println("Rendez-vous personnel ajouté !");
+		}
+
 		return true;
 	}
 
