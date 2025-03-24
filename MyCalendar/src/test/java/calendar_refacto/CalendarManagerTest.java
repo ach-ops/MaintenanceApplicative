@@ -5,6 +5,7 @@ import calendar.evenement.Event;
 import calendar.objet.*;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -117,6 +118,51 @@ public class CalendarManagerTest {
 				new DateEvenement(LocalDateTime.of(2025, 5, 20, 11, 0))
 		);
 		assertEquals(1, events.size());
+	}
+
+	@Test
+	void testExporterEvenementJson() {
+		EventId eventId = new EventId("evt-123");
+		Event evenement = new RendezVous(
+				eventId,
+				new TitreEvenement("RDV Test"),
+				new DateEvenement(LocalDateTime.of(2025, 5, 20, 10, 0)),
+				new DureeEvenement(60),
+				new Proprietaire(new Utilisateur("Achraf", "mdp"))
+		);
+
+		calendarManager.ajouterEvent(evenement);
+
+		String nomFichier = "events_test";
+		calendarManager.exporterVersJson(nomFichier);
+
+		File fichier = new File("data/" + nomFichier + ".json");
+		assertTrue(fichier.exists(), "Le fichier JSON devrait exister après l'export.");
+	}
+
+	@Test
+	void testImporterEvenementJson() {
+		EventId eventId = new EventId("evt-124");
+		Event evenement = new RendezVous(
+				eventId,
+				new TitreEvenement("RDV Test Import"),
+				new DateEvenement(LocalDateTime.of(2025, 5, 21, 11, 0)),
+				new DureeEvenement(90),
+				new Proprietaire(new Utilisateur("Achraf", "mdp"))
+		);
+
+		calendarManager.ajouterEvent(evenement);
+
+		String nomFichier = "events_test_import";
+		calendarManager.exporterVersJson(nomFichier);
+
+		CalendarManager newCalendarManager = new CalendarManager();
+
+		newCalendarManager.importerDepuisJson(nomFichier);
+
+		List<Event> events = newCalendarManager.getTousLesEvenements();
+		assertEquals(1, events.size(), "Il devrait y avoir un événement après l'importation.");
+		assertEquals("RDV Test Import", events.get(0).getTitre().value(), "L'événement importé devrait avoir le bon titre.");
 	}
 
 
