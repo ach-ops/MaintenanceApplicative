@@ -30,10 +30,10 @@ public class EvenementPeriodique extends Event {
 	@Override
 	public List<Event> occurrencesDansPeriode(DateEvenement debut, DateEvenement fin) {
 		List<Event> occurrences = new ArrayList<>();
-		LocalDateTime current = date.value();
+		LocalDateTime current = date.get();
 
-		while (!current.isAfter(fin.value())) {
-			if (!current.isBefore(debut.value())) {
+		while (!current.isAfter(fin.get())) {
+			if (!current.isBefore(debut.get())) {
 				occurrences.add(new EvenementPeriodique(
 						new EventId(id.value() + "_" + current.toLocalDate()),
 						titre,

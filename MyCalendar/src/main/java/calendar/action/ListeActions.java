@@ -21,5 +21,9 @@ public class ListeActions<T> {
 		}
 		return sb.toString();
 	}
+	public int size() {
+		return actions.size();
+	}
+
 }
 

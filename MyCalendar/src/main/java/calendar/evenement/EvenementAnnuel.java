@@ -15,8 +15,8 @@ public class EvenementAnnuel extends Event {
 
 	@Override
 	public String description() {
-		String dateFormatted = date.value().format(DateTimeFormatter.ofPattern("dd MMMM"));
-		return "Événement annuel : " + titre.value() + " chaque année le " + dateFormatted + " (Propriétaire: " + proprietaire.value() + ")";
+		String dateFormatted = date.get().format(DateTimeFormatter.ofPattern("dd MMMM"));
+		return "Événement annuel : " + titre.value() + " chaque année le " + dateFormatted + " (Propriétaire: " + proprietaire.utilisateur().identifiant() + ")";
 	}
 
 	@Override
@@ -30,12 +30,12 @@ public class EvenementAnnuel extends Event {
 	public List<Event> occurrencesDansPeriode(DateEvenement debut, DateEvenement fin) {
 		List<Event> occurrences = new ArrayList<>();
 
-		int startYear = debut.value().getYear();
-		int endYear = fin.value().getYear();
+		int startYear = debut.get().getYear();
+		int endYear = fin.get().getYear();
 
 		for (int year = startYear; year <= endYear; year++) {
-			LocalDateTime occurrenceDateTime = date.value().withYear(year);
-			if (!occurrenceDateTime.isBefore(debut.value()) && !occurrenceDateTime.isAfter(fin.value())) {
+			LocalDateTime occurrenceDateTime = date.get().withYear(year);
+			if (!occurrenceDateTime.isBefore(debut.get()) && !occurrenceDateTime.isAfter(fin.get())) {
 				occurrences.add(new EvenementAnnuel(
 						new EventId(id.value() + "_" + year),
 						titre,

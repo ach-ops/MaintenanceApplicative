@@ -5,20 +5,27 @@ import calendar.evenement.EventDto;
 import calendar.objet.*;
 
 import java.util.Objects;
+import java.util.List;
+
 
 public class Reunion extends Event {
-	private final Participants participants;
-	private final Lieu lieu;
 
-	public Reunion(EventId id, TitreEvenement titre, DateEvenement date, DureeEvenement duree, Proprietaire proprietaire, Participants participants, Lieu lieu) {
+	private final Lieu lieu;
+	private final List<Participants> participants;
+
+	public Reunion(EventId id, TitreEvenement titre, DateEvenement date, DureeEvenement duree,
+				   Proprietaire proprietaire, Lieu lieu, List<Participants> participants) {
 		super(id, titre, date, duree, proprietaire);
-		this.participants = Objects.requireNonNull(participants);
 		this.lieu = Objects.requireNonNull(lieu);
+		this.participants = Objects.requireNonNull(participants);
 	}
 
 	@Override
 	public String description() {
-		return "Réunion : " + titre.value() + " avec " + participants.value() + " à " + lieu.value() + " (Propriétaire: " + proprietaire.value() + ")";
+		return "Réunion : " + titre.value() +
+				" à " + lieu.value() +
+				" le " + date +
+				" avec " + participants.size() + " participant(s)";
 	}
 
 	@Override
@@ -30,8 +37,10 @@ public class Reunion extends Event {
 	public EventDto toDto() {
 		EventDto dto = toBaseDto();
 		dto.lieu = this.lieu;
-		dto.participants = this.participants;
+		if (!participants.isEmpty()) {
+			dto.participants = participants.get(0);
+		}
 		return dto;
 	}
-
 }
+

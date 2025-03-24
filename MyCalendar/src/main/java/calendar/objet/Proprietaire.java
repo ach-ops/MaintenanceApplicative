@@ -1,12 +1,32 @@
 package calendar.objet;
 
-import java.util.Objects;
 
-public record Proprietaire(String value) {
-	public Proprietaire {
-		Objects.requireNonNull(value, "Le propriétaire ne peut pas être null");
-		if (value.isBlank()) {
-			throw new IllegalArgumentException("Le propriétaire ne peut pas être vide");
-		}
+public class Proprietaire {
+	private final Utilisateur utilisateur;
+
+	public Proprietaire(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+
+	public Utilisateur utilisateur() {
+		return utilisateur;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Proprietaire p)) return false;
+		return utilisateur.equals(p.utilisateur);
+	}
+
+	@Override
+	public int hashCode() {
+		return utilisateur.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return utilisateur.toString();
 	}
 }
+

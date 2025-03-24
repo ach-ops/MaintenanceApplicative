@@ -1,24 +1,48 @@
 package calendar.objet;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
+import java.time.format.DateTimeFormatter;
 
-public record DateEvenement(LocalDateTime value) {
+public class DateEvenement {
+	private final LocalDateTime valeur;
 	public static final DateEvenement MIN = new DateEvenement(LocalDateTime.MIN);
 	public static final DateEvenement MAX = new DateEvenement(LocalDateTime.MAX);
 
-	public DateEvenement {
-		Objects.requireNonNull(value, "La date ne peut pas être null");
+
+	public DateEvenement(LocalDateTime valeur) {
+		this.valeur = valeur;
 	}
 
-	public boolean isBetween(DateEvenement debut, DateEvenement fin) {
-		return (value.isAfter(debut.value()) || value.isEqual(debut.value())) &&
-				(value.isBefore(fin.value()) || value.isEqual(fin.value()));
+	public boolean estAvant(DateEvenement autre) {
+		return valeur.isBefore(autre.valeur);
+	}
+
+	public boolean estApres(DateEvenement autre) {
+		return valeur.isAfter(autre.valeur);
+	}
+
+	public LocalDateTime get() {
+		return valeur;
+	}
+
+	@Override
+	public String toString() {
+		return valeur.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 	}
 
 	public boolean chevauche(DureeEvenement duree, DateEvenement autreDate, DureeEvenement autreDuree) {
-		LocalDateTime fin = value.plusMinutes(duree.value());
-		LocalDateTime autreFin = autreDate.value().plusMinutes(autreDuree.value());
-		return value.isBefore(autreFin) && fin.isAfter(autreDate.value());
+		LocalDateTime debut1 = this.get();
+		LocalDateTime fin1 = debut1.plusMinutes(duree.value());
+
+		LocalDateTime debut2 = autreDate.get();
+		LocalDateTime fin2 = debut2.plusMinutes(autreDuree.value());
+
+		return !fin1.isBefore(debut2) && !fin2.isBefore(debut1);
 	}
+
+	public boolean isBetween(DateEvenement debut, DateEvenement fin) {
+		return !this.estAvant(debut) && !this.estApres(fin);
+	}
+
+
 }

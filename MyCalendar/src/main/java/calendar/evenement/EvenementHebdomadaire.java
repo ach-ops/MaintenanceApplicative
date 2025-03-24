@@ -16,21 +16,21 @@ public class EvenementHebdomadaire extends Event {
 
 	@Override
 	public String description() {
-		String jourSemaine = date.value().getDayOfWeek()
+		String jourSemaine = date.get().getDayOfWeek()
 				.getDisplayName(TextStyle.FULL, Locale.FRENCH);
 		return "Événement hebdomadaire : " + titre.value()
 				+ " chaque " + jourSemaine
-				+ " à " + date.value().toLocalTime()
-				+ " (Propriétaire: " + proprietaire.value() + ")";
+				+ " à " + date.get().toLocalTime()
+				+ " (Propriétaire: " + proprietaire.utilisateur().identifiant() + ")";
 	}
 
 	@Override
 	public List<Event> occurrencesDansPeriode(DateEvenement debut, DateEvenement fin) {
 		List<Event> occurrences = new ArrayList<>();
-		LocalDateTime current = date.value();
+		LocalDateTime current = date.get();
 
-		while (!current.isAfter(fin.value())) {
-			if (!current.isBefore(debut.value())) {
+		while (!current.isAfter(fin.get())) {
+			if (!current.isBefore(debut.get())) {
 				occurrences.add(new EvenementHebdomadaire(
 						new EventId(id.value() + "_" + current.toLocalDate()),
 						titre,

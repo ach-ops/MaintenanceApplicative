@@ -49,6 +49,10 @@ public class CalendarManager {
                 System.out.println("[" + event.getId().value() + "] " + event.description()));
     }
 
+    public List<Event> getTousLesEvenements() {
+        return new ArrayList<>(events.values());
+    }
+
     public void exporterVersJson(String nomFichier) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
