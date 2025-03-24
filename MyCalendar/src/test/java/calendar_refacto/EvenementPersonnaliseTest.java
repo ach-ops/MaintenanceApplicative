@@ -1,5 +1,6 @@
 package calendar_refacto;
 
+import calendar.evenement.EvenementPersonnalise;
 import calendar.objet.*;
 import org.junit.jupiter.api.Test;
 
