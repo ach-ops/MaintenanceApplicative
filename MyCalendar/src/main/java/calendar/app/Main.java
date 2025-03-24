@@ -1,5 +1,6 @@
 package calendar.app;
-import calendar.action.*;
+import calendar.action.acces.Connexion;
+import calendar.action.menu.Menu;
 import calendar.objet.Utilisateur;
 
 import java.util.Scanner;

@@ -1,8 +1,7 @@
-package calendar;
+package calendar.objet;
 
 import calendar.evenement.Event;
 import calendar.evenement.EventDto;
-import calendar.objet.*;
 
 import java.util.Objects;
 import java.util.List;

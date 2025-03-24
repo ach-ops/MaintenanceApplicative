@@ -1,5 +1,7 @@
-package calendar.action;
+package calendar.action.menu;
 
+import calendar.action.ListeActions;
+import calendar.action.acces.Deconnexion;
 import calendar.app.CalendarManager;
 import calendar.objet.Utilisateur;
 
@@ -10,12 +12,12 @@ public class Menu {
 
 	public static boolean run(Scanner scanner, CalendarManager calendar, Utilisateur utilisateur) {
 		ListeActions<Boolean> actions = new ListeActions<>(List.of(
+				new MenuAfficherEvenements(scanner, calendar),
 				new AjouterRdvPersonnel(scanner, calendar, utilisateur),
 				new AjouterReunion(scanner, calendar, utilisateur),
-				new MenuAfficherEvenements(scanner, calendar),
+				new AjouterEvenementPeriodique(scanner, calendar, utilisateur),
 				new Deconnexion()
 		));
-
 
 		while (true) {
 			System.out.println("\n Menu principal de " + utilisateur.identifiant());

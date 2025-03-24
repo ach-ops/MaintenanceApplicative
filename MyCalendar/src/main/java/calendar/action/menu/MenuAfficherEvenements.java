@@ -1,5 +1,8 @@
-package calendar.action;
+package calendar.action.menu;
 
+import calendar.action.Action;
+import calendar.action.ListeActions;
+import calendar.action.afficher_les_evenements.*;
 import calendar.app.CalendarManager;
 import calendar.evenement.ListeEvenements;
 

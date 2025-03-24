@@ -1,4 +1,6 @@
-package calendar.action;
+package calendar.action.acces;
+
+import calendar.action.Action;
 
 public class Deconnexion implements Action<Boolean> {
 

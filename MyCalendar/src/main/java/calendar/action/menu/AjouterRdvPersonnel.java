@@ -1,23 +1,22 @@
-package calendar.action;
+package calendar.action.menu;
 
-import calendar.Reunion;
+import calendar.action.Action;
+import calendar.objet.RendezVous;
 import calendar.app.CalendarManager;
 import calendar.evenement.Event;
 import calendar.objet.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class AjouterReunion implements Action<Boolean> {
+public class AjouterRdvPersonnel implements Action<Boolean> {
 
 	private final Scanner scanner;
 	private final CalendarManager calendar;
 	private final Utilisateur utilisateur;
 
-	public AjouterReunion(Scanner scanner, CalendarManager calendar, Utilisateur utilisateur) {
+	public AjouterRdvPersonnel(Scanner scanner, CalendarManager calendar, Utilisateur utilisateur) {
 		this.scanner = scanner;
 		this.calendar = calendar;
 		this.utilisateur = utilisateur;
@@ -25,8 +24,9 @@ public class AjouterReunion implements Action<Boolean> {
 
 	@Override
 	public Boolean run() {
-		System.out.print("Titre de la réunion : ");
-		TitreEvenement titre = new TitreEvenement(scanner.nextLine());
+		System.out.print("Titre de l'événement : ");
+		String titreSaisi = scanner.nextLine();
+		TitreEvenement titre = new TitreEvenement(titreSaisi);
 
 		System.out.print("Année : ");
 		int annee = Integer.parseInt(scanner.nextLine());
@@ -43,38 +43,24 @@ public class AjouterReunion implements Action<Boolean> {
 		DateEvenement date = new DateEvenement(dateTime);
 
 		System.out.print("Durée (en minutes) : ");
-		DureeEvenement duree = new DureeEvenement(Integer.parseInt(scanner.nextLine()));
+		int dureeMinutes = Integer.parseInt(scanner.nextLine());
+		DureeEvenement duree = new DureeEvenement(dureeMinutes);
 
-		System.out.print("Lieu de la réunion : ");
-		Lieu lieu = new Lieu(scanner.nextLine());
-
-		List<Participants> participants = new ArrayList<>();
-		System.out.println("Ajoutez les participants (laisser vide pour terminer) :");
-
-		while (true) {
-			System.out.print("Nom du participant : ");
-			String nom = scanner.nextLine().trim();
-			if (nom.isEmpty()) break;
-			participants.add(new Participants(nom));
-		}
-
-		Event reunion = new Reunion(
+		Event rdv = new RendezVous(
 				new EventId(UUID.randomUUID().toString()),
 				titre,
 				date,
 				duree,
-				new Proprietaire(utilisateur),
-				lieu,
-				participants
+				new Proprietaire(utilisateur)
 		);
 
-		calendar.ajouterEvent(reunion);
-		System.out.println("Réunion ajoutée !");
+		calendar.ajouterEvent(rdv);
+		System.out.println("Rendez-vous personnel ajouté !");
 		return true;
 	}
 
 	@Override
 	public String description() {
-		return "Ajouter une réunion";
+		return "Ajouter un rendez-vous personnel";
 	}
 }

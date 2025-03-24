@@ -1,7 +1,7 @@
 package calendar.evenement;
 
-import calendar.RendezVous;
-import calendar.Reunion;
+import calendar.objet.RendezVous;
+import calendar.objet.Reunion;
 import calendar.objet.*;
 
 import java.util.List;
