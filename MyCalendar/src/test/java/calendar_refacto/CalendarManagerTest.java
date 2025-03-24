@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CalendarManagerTest {
+
 	@Test
 	public void testSupprimerEvenementParIdFonctionne() {
 		CalendarManager calendar = new CalendarManager();
@@ -27,9 +28,21 @@ public class CalendarManagerTest {
 		calendar.ajouterEvent(evenement);
 		assertEquals(1, calendar.getTousLesEvenements().size());
 
-		calendar.supprimerEvent(id);
+		boolean supprime = calendar.supprimerEvent(id);
+		assertTrue(supprime, "L'événement aurait dû être supprimé avec succès.");
 
 		assertTrue(calendar.getTousLesEvenements().isEmpty());
 	}
+
+	@Test
+	public void testSupprimerEvenementAvecIdInexistantRetourneFalse() {
+		CalendarManager calendar = new CalendarManager();
+		EventId inexistant = new EventId("id-faux");
+
+		boolean result = calendar.supprimerEvent(inexistant);
+
+		assertEquals(false, result, "Supprimer un ID inexistant doit retourner false.");
+	}
+
 
 }

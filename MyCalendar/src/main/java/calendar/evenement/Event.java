@@ -1,7 +1,6 @@
 package calendar.evenement;
 
 import calendar.objet.*;
-
 import java.util.Objects;
 import java.util.List;
 
@@ -11,8 +10,6 @@ public abstract class Event implements EventSerializable {
     protected final DateEvenement date;
     protected final DureeEvenement duree;
     protected final Proprietaire proprietaire;
-
-
 
     public Event(EventId id, TitreEvenement titre, DateEvenement date, DureeEvenement duree, Proprietaire proprietaire) {
         this.id = Objects.requireNonNull(id);

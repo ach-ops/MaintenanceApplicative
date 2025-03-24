@@ -3,25 +3,20 @@ package calendar.app;
 import java.util.List;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.io.File;
-import java.io.IOException;
-
-import calendar.evenement.Event;
-import calendar.evenement.EventDto;
-import calendar.evenement.EventDtoFactory;
+import calendar.evenement.*;
 import calendar.objet.DateEvenement;
 import calendar.objet.EventId;
+import calendar.objet.Periode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 
 public class CalendarManager {
-    private final Map<EventId, Event> events = new HashMap<>();
+    private final ListeEvenements listeEvenements = new ListeEvenements(new ArrayList<>());
 
     public void ajouterEvent(Event event) {
-        Optional<Event> conflit = events.values().stream()
+        Optional<Event> conflit = listeEvenements.getAll().stream()
                 .filter(e -> e.estEnConflitAvec(event) || event.estEnConflitAvec(e))
                 .findFirst();
 
@@ -30,25 +25,35 @@ public class CalendarManager {
             return;
         }
 
-        events.put(event.getId(), event);
+        listeEvenements.ajouter(event);
         System.out.println("Événement ajouté au calendrier.");
     }
 
-    public List<Event> eventsDansPeriode(DateEvenement debut, DateEvenement fin) {
-        return events.values().stream()
-                .flatMap(event -> event.occurrencesDansPeriode(debut, fin).stream())
-                .collect(Collectors.toList());
-    }
-
-    public void afficherEvenements() {
-        events.values().forEach(event ->
-                System.out.println("[" + event.getId().value() + "] " + event.description()));
+    public boolean supprimerEvent(EventId eventId) {
+        return listeEvenements.supprimerEvenement(eventId);
     }
 
     public List<Event> getTousLesEvenements() {
-        return new ArrayList<>(events.values());
+        return listeEvenements.getAll();
     }
 
+    public ListeEvenements getListeEvenements() {
+        return listeEvenements;
+    }
+
+    public List<Event> eventsDansPeriode(DateEvenement debut, DateEvenement fin) {
+        return listeEvenements.getAll().stream()
+                .flatMap(event -> event.occurrencesDansPeriode(debut, fin).stream())
+                .toList();
+    }
+
+    public ListeEvenements eventsDansPeriode(Periode periode) {
+        List<Event> resultats = eventsDansPeriode(periode.debut(), periode.fin());
+        return new ListeEvenements(resultats);
+    }
+
+
+    /*
     public void exporterVersJson(String nomFichier) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
@@ -99,7 +104,7 @@ public class CalendarManager {
         } catch (IOException e) {
             System.err.println("Erreur import JSON : " + e.getMessage());
         }
-    }
+    }*/
 
 
 }

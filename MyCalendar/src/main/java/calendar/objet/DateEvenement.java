@@ -5,9 +5,6 @@ import java.time.format.DateTimeFormatter;
 
 public class DateEvenement {
 	private final LocalDateTime valeur;
-	public static final DateEvenement MIN = new DateEvenement(LocalDateTime.MIN);
-	public static final DateEvenement MAX = new DateEvenement(LocalDateTime.MAX);
-
 
 	public DateEvenement(LocalDateTime valeur) {
 		this.valeur = valeur;

@@ -4,6 +4,7 @@ import calendar.action.Action;
 import calendar.app.CalendarManager;
 import calendar.evenement.ListeEvenements;
 import calendar.objet.DateEvenement;
+import calendar.objet.Periode;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
@@ -28,7 +29,7 @@ public class AfficherMois implements Action<ListeEvenements> {
 		LocalDateTime debut = LocalDateTime.of(annee, mois, 1, 0, 0);
 		LocalDateTime fin = debut.plusMonths(1).minusSeconds(1);
 
-		return new ListeEvenements(calendar.eventsDansPeriode(
+		return calendar.eventsDansPeriode(new Periode(
 				new DateEvenement(debut),
 				new DateEvenement(fin)
 		));

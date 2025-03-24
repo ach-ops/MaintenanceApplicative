@@ -14,7 +14,7 @@ public class AfficherTous implements Action<ListeEvenements> {
 
 	@Override
 	public ListeEvenements run() {
-		return new ListeEvenements(calendar.getTousLesEvenements());
+		return calendar.getListeEvenements();
 	}
 
 	@Override

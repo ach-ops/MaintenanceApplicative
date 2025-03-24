@@ -25,7 +25,6 @@ public class AfficherPeriode implements Action<ListeEvenements> {
 
 		System.out.println("Date de fin :");
 		DateEvenement fin = demanderDate();
-
 		return new ListeEvenements(calendar.eventsDansPeriode(debut, fin));
 	}
 
