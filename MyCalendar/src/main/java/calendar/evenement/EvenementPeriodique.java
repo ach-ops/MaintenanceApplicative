@@ -49,11 +49,4 @@ public class EvenementPeriodique extends Event {
 		return occurrences;
 	}
 
-	@Override
-	public EventDto toDto() {
-		EventDto dto = toBaseDto();
-		dto.frequence = this.frequence;
-		return dto;
-	}
-
 }

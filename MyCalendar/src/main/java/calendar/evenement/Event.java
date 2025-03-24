@@ -1,10 +1,9 @@
 package calendar.evenement;
 
 import calendar.objet.*;
-import java.util.Objects;
 import java.util.List;
 
-public abstract class Event implements EventSerializable {
+public abstract class Event {
     protected final EventId id;
     protected final TitreEvenement titre;
     protected final DateEvenement date;
@@ -12,11 +11,11 @@ public abstract class Event implements EventSerializable {
     protected final Proprietaire proprietaire;
 
     public Event(EventId id, TitreEvenement titre, DateEvenement date, DureeEvenement duree, Proprietaire proprietaire) {
-        this.id = Objects.requireNonNull(id);
-        this.titre = Objects.requireNonNull(titre);
-        this.date = Objects.requireNonNull(date);
-        this.duree = Objects.requireNonNull(duree);
-        this.proprietaire = Objects.requireNonNull(proprietaire);
+        this.id = id;
+        this.titre = titre;
+        this.date = date;
+        this.duree = duree;
+        this.proprietaire = proprietaire;
     }
 
     public abstract String description();
@@ -59,18 +58,5 @@ public abstract class Event implements EventSerializable {
     public boolean estEnConflitAvec(Event autre) {
         return this.date.chevauche(this.duree, autre.getDate(), autre.getDuree());
     }
-
-    protected EventDto toBaseDto() {
-        EventDto dto = new EventDto();
-        dto.id = this.id;
-        dto.titre = this.titre;
-        dto.date = this.date;
-        dto.duree = this.duree;
-        dto.proprietaire = this.proprietaire;
-        dto.type = this.getClass().getSimpleName();
-        return dto;
-    }
-
-
 
 }

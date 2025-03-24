@@ -17,6 +17,8 @@ public class Menu {
 				new AjouterReunion(scanner, calendar, utilisateur),
 				new AjouterEvenementPeriodique(scanner, calendar, utilisateur),
 				new AjouterEvenementPerso(scanner, calendar, utilisateur),
+				new ExporterJsonAction(scanner, calendar),
+				new ImporterJsonAction(scanner, calendar),
 				new SupprimerEventParId(scanner, calendar),
 				new Deconnexion()
 		));

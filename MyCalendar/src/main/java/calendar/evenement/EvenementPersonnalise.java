@@ -21,11 +21,4 @@ public class EvenementPersonnalise extends Event {
 	public boolean estEnConflitAvec(Event autre) {
 		return super.estEnConflitAvec(autre);
 	}
-
-	@Override
-	public EventDto toDto() {
-		EventDto dto = toBaseDto();
-		dto.type = this.typePerso;
-		return dto;
-	}
 }

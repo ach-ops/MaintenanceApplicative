@@ -1,7 +1,6 @@
 package calendar.objet;
 
 import calendar.evenement.Event;
-import calendar.evenement.EventDto;
 
 import java.util.Objects;
 import java.util.List;
@@ -32,14 +31,5 @@ public class Reunion extends Event {
 		return super.estEnConflitAvec(autre);
 	}
 
-	@Override
-	public EventDto toDto() {
-		EventDto dto = toBaseDto();
-		dto.lieu = this.lieu;
-		if (!participants.isEmpty()) {
-			dto.participants = participants.get(0);
-		}
-		return dto;
-	}
 }
 

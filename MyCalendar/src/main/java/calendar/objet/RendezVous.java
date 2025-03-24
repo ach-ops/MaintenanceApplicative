@@ -1,7 +1,6 @@
 package calendar.objet;
 
 import calendar.evenement.Event;
-import calendar.evenement.EventDto;
 
 public class RendezVous extends Event {
 	public RendezVous(EventId id, TitreEvenement titre, DateEvenement date, DureeEvenement duree, Proprietaire proprietaire) {
@@ -18,11 +17,5 @@ public class RendezVous extends Event {
 	public boolean estEnConflitAvec(Event autre) {
 		return super.estEnConflitAvec(autre);
 	}
-
-	@Override
-	public EventDto toDto() {
-		return toBaseDto();
-	}
-
 
 }

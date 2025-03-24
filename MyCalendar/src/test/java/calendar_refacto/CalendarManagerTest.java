@@ -14,6 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CalendarManagerTest {
 
+	private final CalendarManager calendarManager = new CalendarManager();
+
 	@Test
 	public void testSupprimerEvenementParIdFonctionne() {
 		CalendarManager calendar = new CalendarManager();
@@ -153,8 +155,7 @@ public class CalendarManagerTest {
 
 		calendarManager.ajouterEvent(evenement);
 
-		String nomFichier = "events_test_import";
-		calendarManager.exporterVersJson(nomFichier);
+		String nomFichier = "events_test.json";
 
 		CalendarManager newCalendarManager = new CalendarManager();
 
@@ -164,6 +165,5 @@ public class CalendarManagerTest {
 		assertEquals(1, events.size(), "Il devrait y avoir un événement après l'importation.");
 		assertEquals("RDV Test Import", events.get(0).getTitre().value(), "L'événement importé devrait avoir le bon titre.");
 	}
-
 
 }

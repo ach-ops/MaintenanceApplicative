@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DateEvenement {
+
 	private final LocalDateTime valeur;
 
 	public DateEvenement(LocalDateTime valeur) {
@@ -40,6 +41,4 @@ public class DateEvenement {
 	public boolean isBetween(DateEvenement debut, DateEvenement fin) {
 		return !this.estAvant(debut) && !this.estApres(fin);
 	}
-
-
 }

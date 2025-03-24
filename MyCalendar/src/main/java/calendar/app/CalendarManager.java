@@ -45,4 +45,13 @@ public class CalendarManager {
         return new ListeEvenements(resultats);
     }
 
+    public void exporterVersJson(String nomFichier) {
+        ExporterJson.exporter(listeEvenements.getAll(), nomFichier);
+    }
+
+    public void importerDepuisJson(String nomFichier) {
+        ImporterJson.importer(listeEvenements, nomFichier);
+    }
+
+
 }
