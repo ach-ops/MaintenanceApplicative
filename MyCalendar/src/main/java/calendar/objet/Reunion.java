@@ -29,7 +29,7 @@ public class Reunion extends Event {
 
 	@Override
 	public boolean estEnConflitAvec(Event autre) {
-		return this.date.chevauche(this.duree, autre.getDate(), autre.getDuree());
+		return super.estEnConflitAvec(autre);
 	}
 
 	@Override

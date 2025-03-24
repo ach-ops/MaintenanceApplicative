@@ -2,21 +2,10 @@ package calendar.objet;
 
 import java.util.Objects;
 
-public class Utilisateur {
-	private final String identifiant;
-	private final String motDePasse;
-
-	public Utilisateur(String identifiant, String motDePasse) {
-		this.identifiant = identifiant;
-		this.motDePasse = motDePasse;
-	}
-
-	public String identifiant() {
-		return identifiant;
-	}
-
-	public String motDePasse() {
-		return motDePasse;
+public record Utilisateur(String identifiant, String motDePasse) {
+	public Utilisateur {
+		Objects.requireNonNull(identifiant, "L'identifiant ne peut pas être null");
+		Objects.requireNonNull(motDePasse, "Le mot de passe ne peut pas être null");
 	}
 
 	@Override
@@ -25,11 +14,6 @@ public class Utilisateur {
 		if (!(o instanceof Utilisateur that)) return false;
 		return Objects.equals(identifiant, that.identifiant)
 				&& Objects.equals(motDePasse, that.motDePasse);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(identifiant, motDePasse);
 	}
 
 	@Override

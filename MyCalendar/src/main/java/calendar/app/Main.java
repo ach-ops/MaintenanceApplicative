@@ -11,7 +11,6 @@ public class Main {
     public static final CalendarManager calendar = new CalendarManager();
 
     public static void main(String[] args) {
-        // Logo
         System.out.println("  _____         _                   _                __  __");
         System.out.println(" / ____|       | |                 | |              |  \\/  |");
         System.out.println("| |       __ _ | |  ___  _ __    __| |  __ _  _ __  | \\  / |  __ _  _ __");

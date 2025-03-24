@@ -56,7 +56,9 @@ public abstract class Event implements EventSerializable {
         return List.of();
     }
 
-    public abstract boolean estEnConflitAvec(Event autre);
+    public boolean estEnConflitAvec(Event autre) {
+        return this.date.chevauche(this.duree, autre.getDate(), autre.getDuree());
+    }
 
     protected EventDto toBaseDto() {
         EventDto dto = new EventDto();

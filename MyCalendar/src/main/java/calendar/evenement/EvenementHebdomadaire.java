@@ -45,7 +45,6 @@ public class EvenementHebdomadaire extends Event {
 		return occurrences;
 	}
 
-
 	@Override
 	public boolean estEnConflitAvec(Event autre) {
 		List<Event> occurrences = this.occurrencesDansPeriode(autre.getDate(), autre.getDate());
