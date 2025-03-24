@@ -34,10 +34,6 @@ public class CalendarManager {
         System.out.println("Événement ajouté au calendrier.");
     }
 
-    public void supprimerEvent(EventId id) {
-        events.remove(id);
-    }
-
     public List<Event> eventsDansPeriode(DateEvenement debut, DateEvenement fin) {
         return events.values().stream()
                 .flatMap(event -> event.occurrencesDansPeriode(debut, fin).stream())
