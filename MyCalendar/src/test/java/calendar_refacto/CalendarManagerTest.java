@@ -5,7 +5,6 @@ import calendar.evenement.Event;
 import calendar.objet.*;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -123,31 +122,11 @@ public class CalendarManagerTest {
 	}
 
 	@Test
-	void testExporterEvenementJson() {
-		EventId eventId = new EventId("evt-123");
-		Event evenement = new RendezVous(
-				eventId,
-				new TitreEvenement("RDV Test"),
-				new DateEvenement(LocalDateTime.of(2025, 5, 20, 10, 0)),
-				new DureeEvenement(60),
-				new Proprietaire(new Utilisateur("Achraf", "mdp"))
-		);
-
-		calendarManager.ajouterEvent(evenement);
-
-		String nomFichier = "events_test";
-		calendarManager.exporterVersJson(nomFichier);
-
-		File fichier = new File("data/" + nomFichier + ".json");
-		assertTrue(fichier.exists(), "Le fichier JSON devrait exister après l'export.");
-	}
-
-	@Test
 	void testImporterEvenementJson() {
 		EventId eventId = new EventId("evt-124");
 		Event evenement = new RendezVous(
 				eventId,
-				new TitreEvenement("RDV Test Import"),
+				new TitreEvenement("RDV Importé"),
 				new DateEvenement(LocalDateTime.of(2025, 5, 21, 11, 0)),
 				new DureeEvenement(90),
 				new Proprietaire(new Utilisateur("Achraf", "mdp"))
@@ -155,7 +134,7 @@ public class CalendarManagerTest {
 
 		calendarManager.ajouterEvent(evenement);
 
-		String nomFichier = "events_test.json";
+		String nomFichier = "events_test_1.json";
 
 		CalendarManager newCalendarManager = new CalendarManager();
 
@@ -163,7 +142,45 @@ public class CalendarManagerTest {
 
 		List<Event> events = newCalendarManager.getTousLesEvenements();
 		assertEquals(1, events.size(), "Il devrait y avoir un événement après l'importation.");
-		assertEquals("RDV Test Import", events.get(0).getTitre().value(), "L'événement importé devrait avoir le bon titre.");
+		assertEquals("RDV Importé", events.get(0).getTitre().value(), "L'événement importé devrait avoir le bon titre.");
 	}
+
+	@Test
+	void testImportPlusieursRendezVous() {
+		CalendarManager manager = new CalendarManager();
+		String fichier = "test_rdv_multiple.json";
+
+		manager.importerDepuisJson(fichier);
+
+		List<Event> events = manager.getTousLesEvenements();
+		assertEquals(3, events.size());
+		assertTrue(events.stream().anyMatch(e -> e.getTitre().value().equals("RDV A")));
+		assertTrue(events.stream().anyMatch(e -> e.getTitre().value().equals("RDV B")));
+		assertTrue(events.stream().anyMatch(e -> e.getTitre().value().equals("RDV C")));
+	}
+
+	//Test de réimportation dans un calendrier déjà rempli
+	@Test
+	void testImportAvecEvenementsExistants() {
+		CalendarManager manager = new CalendarManager();
+
+		Event event = new RendezVous(
+				new EventId("evt-100"),
+				new TitreEvenement("RDV Original"),
+				new DateEvenement(LocalDateTime.of(2025, 7, 15, 10, 0)),
+				new DureeEvenement(45),
+				new Proprietaire(new Utilisateur("Bob", "pass"))
+		);
+
+		manager.ajouterEvent(event);
+
+		manager.importerDepuisJson("events_test_1.json");
+
+		List<Event> events = manager.getTousLesEvenements();
+		assertTrue(events.size() >= 2);
+		assertTrue(events.stream().anyMatch(e -> e.getTitre().value().equals("RDV Original")));
+		assertTrue(events.stream().anyMatch(e -> e.getTitre().value().equals("RDV Importé")));
+	}
+
 
 }

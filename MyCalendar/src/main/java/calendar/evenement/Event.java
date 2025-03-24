@@ -2,6 +2,20 @@ package calendar.evenement;
 
 import calendar.objet.*;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = RendezVous.class, name = "rendezvous"),
+        @JsonSubTypes.Type(value = Reunion.class, name = "reunion"),
+        @JsonSubTypes.Type(value = EvenementPeriodique.class, name = "periodique"),
+        @JsonSubTypes.Type(value = EvenementPersonnalise.class, name = "personnalise")
+})
 
 public abstract class Event {
     protected final EventId id;

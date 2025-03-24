@@ -1,5 +1,9 @@
 package calendar.objet;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -7,7 +11,8 @@ public class DateEvenement {
 
 	private final LocalDateTime valeur;
 
-	public DateEvenement(LocalDateTime valeur) {
+	@JsonCreator
+	public DateEvenement(@JsonProperty("value") LocalDateTime valeur) {
 		this.valeur = valeur;
 	}
 
@@ -19,6 +24,7 @@ public class DateEvenement {
 		return valeur.isAfter(autre.valeur);
 	}
 
+	@JsonValue
 	public LocalDateTime get() {
 		return valeur;
 	}

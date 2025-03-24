@@ -1,9 +1,20 @@
 package calendar.objet;
 
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-public record EventId(String value) {
-	public EventId {
-		Objects.requireNonNull(value, "L'ID ne peut pas être null");
+public class EventId {
+	private final String value;
+
+	@JsonCreator
+	public EventId(@JsonProperty("value") String value) {
+		this.value = value;
+	}
+
+	@JsonValue
+	public String value() {
+		return value;
 	}
 }
+

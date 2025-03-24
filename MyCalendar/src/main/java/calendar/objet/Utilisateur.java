@@ -1,24 +1,29 @@
 package calendar.objet;
 
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record Utilisateur(String identifiant, String motDePasse) {
-	public Utilisateur {
-		Objects.requireNonNull(identifiant, "L'identifiant ne peut pas être null");
-		Objects.requireNonNull(motDePasse, "Le mot de passe ne peut pas être null");
+public class Utilisateur {
+	private final String identifiant;
+	private final String motDePasse;
+
+	@JsonCreator
+	public Utilisateur(
+			@JsonProperty("identifiant") String identifiant,
+			@JsonProperty("motDePasse") String motDePasse) {
+		this.identifiant = identifiant;
+		this.motDePasse = motDePasse;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Utilisateur that)) return false;
-		return Objects.equals(identifiant, that.identifiant)
-				&& Objects.equals(motDePasse, that.motDePasse);
+	@JsonProperty("identifiant")
+	public String identifiant() {
+		return identifiant;
 	}
 
-	@Override
-	public String toString() {
-		return "Utilisateur{" + identifiant + "}";
+	@JsonProperty("motDePasse")
+	public String motDePasse() {
+		return motDePasse;
 	}
 }
+
 

@@ -1,0 +1,32 @@
+[
+  {
+    "type": "rendezvous",
+    "id": { "value": "evt-201" },
+    "titre": { "value": "RDV A" },
+    "date": { "value": "2025-04-10T09:00:00" },
+    "duree": { "value": 60 },
+    "proprietaire": {
+      "utilisateur": { "identifiant": "Alice", "motDePasse": "passA" }
+    }
+  },
+  {
+    "type": "rendezvous",
+    "id": { "value": "evt-202" },
+    "titre": { "value": "RDV B" },
+    "date": { "value": "2025-04-11T10:30:00" },
+    "duree": { "value": 30 },
+    "proprietaire": {
+      "utilisateur": { "identifiant": "Bob", "motDePasse": "passB" }
+    }
+  },
+  {
+    "type": "rendezvous",
+    "id": { "value": "evt-203" },
+    "titre": { "value": "RDV C" },
+    "date": { "value": "2025-04-12T15:45:00" },
+    "duree": { "value": 90 },
+    "proprietaire": {
+      "utilisateur": { "identifiant": "Charlie", "motDePasse": "passC" }
+    }
+  }
+]

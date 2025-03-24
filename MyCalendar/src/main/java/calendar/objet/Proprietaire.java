@@ -1,22 +1,22 @@
 package calendar.objet;
 
 
-public record Proprietaire(Utilisateur utilisateur) {
-	public Proprietaire {
-		if (utilisateur == null) {
-			throw new IllegalArgumentException("L'utilisateur ne peut pas être null");
-		}
-	}
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Proprietaire p)) return false;
-		return utilisateur.equals(p.utilisateur);
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class Proprietaire {
+	private final Utilisateur utilisateur;
+
+	@JsonCreator
+	public Proprietaire(@JsonProperty("utilisateur") Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 
-	@Override
-	public String toString() {
-		return utilisateur.toString();
+	@JsonProperty("utilisateur")
+	public Utilisateur utilisateur() {
+		return utilisateur;
 	}
 }
+
+
 
