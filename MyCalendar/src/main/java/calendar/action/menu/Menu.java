@@ -16,6 +16,7 @@ public class Menu {
 				new AjouterRdvPersonnel(scanner, calendar, utilisateur),
 				new AjouterReunion(scanner, calendar, utilisateur),
 				new AjouterEvenementPeriodique(scanner, calendar, utilisateur),
+				new AjouterEvenementPerso(scanner, calendar, utilisateur),
 				new Deconnexion()
 		));
 
