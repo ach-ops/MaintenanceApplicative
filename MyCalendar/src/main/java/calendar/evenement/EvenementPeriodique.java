@@ -5,12 +5,21 @@ import calendar.objet.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EvenementPeriodique extends Event {
 	private final FrequenceEvenement frequence;
 
-
-	public EvenementPeriodique(EventId id, TitreEvenement titre, DateEvenement date, DureeEvenement duree, Proprietaire proprietaire, FrequenceEvenement frequence) {
+	@JsonCreator
+	public EvenementPeriodique(
+			@JsonProperty("id") EventId id,
+			@JsonProperty("titre") TitreEvenement titre,
+			@JsonProperty("date") DateEvenement date,
+			@JsonProperty("duree") DureeEvenement duree,
+			@JsonProperty("proprietaire") Proprietaire proprietaire,
+			@JsonProperty("frequence") FrequenceEvenement frequence
+	) {
 		super(id, titre, date, duree, proprietaire);
 		this.frequence = frequence;
 	}

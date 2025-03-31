@@ -1,15 +1,18 @@
 package calendar.objet;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public class EventId {
 	private final String value;
 
-	@JsonCreator
-	public EventId(@JsonProperty("value") String value) {
+	public EventId(String value) {
 		this.value = value;
+	}
+
+	@JsonCreator
+	public static EventId fromString(String value) {
+		return new EventId(value);
 	}
 
 	@JsonValue
@@ -17,4 +20,3 @@ public class EventId {
 		return value;
 	}
 }
-

@@ -1,7 +1,7 @@
 package calendar.ui;
 
 import calendar.app.CalendarManager;
-import calendar.objet.Utilisateur;
+import calendar.objet.*;
 import calendar.ui.views.ConnexionView;
 import calendar.ui.views.CreerCompteView;
 import calendar.ui.views.MenuView;
@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 
 public class App extends Application {
 
@@ -42,6 +43,7 @@ public class App extends Application {
 		scene.setRoot(new CreerCompteView(this, calendarManager).getView());
 		primaryStage.setTitle("Créer un compte");
 	}
+
 
 
 	public static void main(String[] args) {

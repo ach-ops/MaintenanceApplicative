@@ -18,7 +18,7 @@ public class RendezVous extends Event {
 	@Override
 	public String description() {
 		return "Rendez-vous : " + titre.value() + " le " + date.get() +
-				" (Propriétaire: " + proprietaire.utilisateur().identifiant() + ")";
+				" (Propriétaire: " + proprietaire.getUtilisateur().identifiant() + ")";
 	}
 
 	@Override

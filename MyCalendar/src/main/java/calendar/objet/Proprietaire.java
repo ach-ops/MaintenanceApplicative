@@ -13,9 +13,11 @@ public class Proprietaire {
 	}
 
 	@JsonProperty("utilisateur")
-	public Utilisateur utilisateur() {
+	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}
+
+
 }
 
 
