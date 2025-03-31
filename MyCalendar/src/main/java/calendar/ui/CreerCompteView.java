@@ -2,42 +2,72 @@ package calendar.ui;
 
 import calendar.app.CalendarManager;
 import calendar.objet.Utilisateur;
-import javafx.scene.Scene;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class CreerCompteView {
 
-	private final CalendarManager calendarManager;
+	private final VBox view = new VBox(15);
 
-	public CreerCompteView(CalendarManager calendarManager) {
-		this.calendarManager = calendarManager;
-	}
+	public CreerCompteView(App app, CalendarManager calendarManager) {
 
-	public void show() {
-		Stage stage = new Stage();
-		VBox root = new VBox(10);
-		root.setPadding(new javafx.geometry.Insets(20));
+		view.setPadding(new Insets(30));
+		view.setAlignment(Pos.CENTER);
+		view.setStyle("-fx-background-color: #f0f4f8;");
+
+		Label title = new Label("Créer un compte");
+		title.setStyle("""
+			-fx-font-size: 22px;
+			-fx-font-weight: bold;
+			-fx-text-fill: #333;
+		""");
 
 		TextField usernameField = new TextField();
 		usernameField.setPromptText("Nom d'utilisateur");
+		usernameField.setPrefWidth(250);
 
 		PasswordField passwordField = new PasswordField();
 		passwordField.setPromptText("Mot de passe");
+		passwordField.setPrefWidth(250);
 
 		PasswordField confirmField = new PasswordField();
 		confirmField.setPromptText("Confirmer le mot de passe");
+		confirmField.setPrefWidth(250);
 
-		Button creerButton = new Button("Créer");
+		Button creerButton = new Button("Créer le compte");
+		creerButton.setPrefWidth(200);
+
+		String buttonStyle = """
+			-fx-background-color: #4CAF50;
+			-fx-text-fill: white;
+			-fx-font-size: 14px;
+			-fx-background-radius: 8px;
+			-fx-cursor: hand;
+		""";
+
+		String buttonHoverStyle = """
+			-fx-background-color: #45a049;
+			-fx-text-fill: white;
+			-fx-font-size: 14px;
+			-fx-background-radius: 8px;
+			-fx-cursor: hand;
+		""";
+
+		creerButton.setStyle(buttonStyle);
+		creerButton.setOnMouseEntered(e -> creerButton.setStyle(buttonHoverStyle));
+		creerButton.setOnMouseExited(e -> creerButton.setStyle(buttonStyle));
+
 		Label feedback = new Label();
+		feedback.setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
 
 		creerButton.setOnAction(e -> {
 			String nom = usernameField.getText().trim();
 			String mdp = passwordField.getText().trim();
 			String confirmation = confirmField.getText().trim();
 
-			if (nom.isEmpty() || mdp.isEmpty()) {
+			if (nom.isEmpty() || mdp.isEmpty() || confirmation.isEmpty()) {
 				feedback.setText("Veuillez remplir tous les champs.");
 				return;
 			}
@@ -52,20 +82,39 @@ public class CreerCompteView {
 				return;
 			}
 
-			Utilisateur nouvelUtilisateur = new Utilisateur(nom, mdp);
-			calendarManager.getListeUtilisateurs().ajouter(nouvelUtilisateur);
+			calendarManager.getListeUtilisateurs().ajouter(new Utilisateur(nom, mdp));
 
+			feedback.setStyle("-fx-text-fill: green; -fx-font-weight: bold;");
 			feedback.setText("Compte créé avec succès !");
+
+			new Thread(() -> {
+				try {
+					Thread.sleep(1200);
+				} catch (InterruptedException ignored) {}
+				javafx.application.Platform.runLater(app::showConnexionView);
+			}).start();
 		});
 
-		root.getChildren().addAll(
-				new Label("Créer un compte"),
-				usernameField, passwordField, confirmField,
-				creerButton, feedback
-		);
+		Button retourButton = new Button("Retour");
+		retourButton.setPrefWidth(200);
+		retourButton.setStyle(buttonStyle);
+		retourButton.setOnMouseEntered(e -> retourButton.setStyle(buttonHoverStyle));
+		retourButton.setOnMouseExited(e -> retourButton.setStyle(buttonStyle));
 
-		stage.setScene(new Scene(root, 350, 300));
-		stage.setTitle("Créer un compte");
-		stage.show();
+		retourButton.setOnAction(e -> app.showConnexionView());
+
+		view.getChildren().addAll(
+				title,
+				usernameField,
+				passwordField,
+				confirmField,
+				creerButton,
+				retourButton,
+				feedback
+		);
+	}
+
+	public VBox getView() {
+		return view;
 	}
 }

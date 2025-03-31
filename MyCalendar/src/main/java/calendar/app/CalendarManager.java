@@ -51,13 +51,20 @@ public class CalendarManager {
         return new ListeEvenements(resultats);
     }
 
-    public void exporterVersJson(String nomFichier) {
-        ExporterJson.exporter(listeEvenements.getAll(), nomFichier);
+    public void exporterVersJson(String cheminComplet) {
+        try {
+            ExporterJson.exporter(listeEvenements.getAll(), cheminComplet);
+        } catch (Exception e) {
+            System.err.println("Erreur export JSON : " + e.getMessage());
+        }
     }
 
-    public void importerDepuisJson(String nomFichier) {
-        ImporterJson.importer(listeEvenements, nomFichier);
+    public void importerDepuisJson(String cheminComplet) {
+        try {
+            ImporterJson.importer(listeEvenements, cheminComplet);
+        } catch (Exception e) {
+            System.err.println("Erreur import JSON : " + e.getMessage());
+        }
     }
-
 
 }

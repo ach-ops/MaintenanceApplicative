@@ -16,19 +16,23 @@ public class ImporterJson {
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.registerModule(new JavaTimeModule());
 
-			if (!nomFichier.endsWith(".json")) {
-				nomFichier += ".json";
+			File fichier;
+
+			if (nomFichier.contains(File.separator)) {
+				fichier = new File(nomFichier);
+			} else {
+				fichier = new File("data/" + nomFichier);
 			}
 
-			String cheminComplet = "data/" + nomFichier;
-
-			List<Event> events = mapper.readValue(new File(cheminComplet), mapper.getTypeFactory().constructCollectionType(List.class, Event.class));
+			List<Event> events = mapper.readValue(fichier,
+					mapper.getTypeFactory().constructCollectionType(List.class, Event.class));
 
 			for (Event event : events) {
 				listeEvenements.ajouter(event);
 			}
 
-			System.out.println("Événements importés depuis : " + cheminComplet);
+			System.out.println("Événements importés depuis : " + fichier.getAbsolutePath());
+
 		} catch (IOException e) {
 			System.err.println("Erreur lors de l'import des événements : " + e.getMessage());
 		}

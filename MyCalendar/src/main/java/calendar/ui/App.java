@@ -4,36 +4,42 @@ import calendar.app.CalendarManager;
 import calendar.objet.Utilisateur;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class App extends Application {
 
 	private final CalendarManager calendarManager = new CalendarManager();
 	private Stage primaryStage;
+	private Scene scene;
 
 	@Override
 	public void start(Stage stage) {
 		this.primaryStage = stage;
-		showConnexionView();
-	}
-
-	public void showConnexionView() {
-		ConnexionView connexionView = new ConnexionView(this, calendarManager);
-		primaryStage.setScene(new Scene(connexionView.getView(), 400, 300));
+		this.scene = new Scene(new VBox(), 800, 600);
+		primaryStage.setScene(scene);
+		showConnexionView(); // remplit le contenu
 		primaryStage.setTitle("Connexion");
 		primaryStage.show();
 	}
 
+	public void showConnexionView() {
+		ConnexionView connexionView = new ConnexionView(this, calendarManager);
+		scene.setRoot(connexionView.getView());
+		primaryStage.setTitle("Connexion");
+	}
+
 	public void showMenuView(Utilisateur utilisateur) {
 		MenuView menuView = new MenuView(this, calendarManager, utilisateur);
-		primaryStage.setScene(new Scene(menuView.getView(), 600, 400));
+		scene.setRoot(menuView.getView());
 		primaryStage.setTitle("Menu - " + utilisateur.identifiant());
 	}
 
 	public void showCreerCompteView() {
-		CreerCompteView creerCompteView = new CreerCompteView(calendarManager);
-		creerCompteView.show();
+		scene.setRoot(new CreerCompteView(this, calendarManager).getView());
+		primaryStage.setTitle("Créer un compte");
 	}
+
 
 	public static void main(String[] args) {
 		launch(args);
