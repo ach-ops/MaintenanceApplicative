@@ -48,21 +48,19 @@ public class ButtonGridView {
 
 		// Actions
 		buttons[0].setOnAction(e -> {
-			new AjouterRdvView(calendarManager, utilisateur).show();
-			refresh();
+			new AjouterRdvView(calendarManager, utilisateur, this::refresh).show();
 		});
+
 		buttons[1].setOnAction(e -> {
-			new AjouterReunionView(calendarManager, utilisateur).show();
-			refresh();
+			new AjouterReunionView(calendarManager, utilisateur, this::refresh).show();
 		});
 		buttons[2].setOnAction(e -> {
-			new AjouterEventPeriodiqueView(calendarManager, utilisateur).show();
-			refresh();
+			new AjouterEventPeriodiqueView(calendarManager, utilisateur, this::refresh).show();
 		});
 		buttons[3].setOnAction(e -> {
-			new AjouterEvenementPersoView(calendarManager, utilisateur).show();
-			refresh();
+			new AjouterEvenementPersoView(calendarManager, utilisateur, this::refresh).show();
 		});
+
 		buttons[4].setOnAction(e -> {
 			FileChooser fc = new FileChooser();
 			fc.setTitle("Exporter JSON");

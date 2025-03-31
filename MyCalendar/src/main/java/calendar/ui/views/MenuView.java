@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+
 public class MenuView {
 
 	private final VBox view;
@@ -37,10 +38,13 @@ public class MenuView {
 		// Composants
 		ButtonGridView buttonGrid = new ButtonGridView(calendarManager, utilisateur);
 		EventTableView eventTable = new EventTableView(calendarManager);
+		buttonGrid.setRefreshAction(v -> eventTable.refresh());
+		FiltreEvenementsView filtreView = new FiltreEvenementsView(calendarManager, eventTable.getTable());
 
 		buttonGrid.setRefreshAction(v -> eventTable.refresh());
 
-		view.getChildren().addAll(topBar, titre, buttonGrid.getView(), eventTable.getView());
+		view.getChildren().addAll(topBar, titre, buttonGrid.getView(), filtreView, eventTable.getView());
+
 	}
 
 	public VBox getView() {

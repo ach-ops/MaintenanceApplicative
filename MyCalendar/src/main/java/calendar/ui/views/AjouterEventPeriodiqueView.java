@@ -19,10 +19,12 @@ public class AjouterEventPeriodiqueView {
 
 	private final CalendarManager calendarManager;
 	private final Utilisateur utilisateur;
+	private final Runnable onSuccess;
 
-	public AjouterEventPeriodiqueView(CalendarManager calendarManager, Utilisateur utilisateur) {
+	public AjouterEventPeriodiqueView(CalendarManager calendarManager, Utilisateur utilisateur, Runnable onSuccess) {
 		this.calendarManager = calendarManager;
 		this.utilisateur = utilisateur;
+		this.onSuccess = onSuccess;
 	}
 
 	public void show() {
@@ -106,6 +108,7 @@ public class AjouterEventPeriodiqueView {
 
 				boolean ajoute = calendarManager.ajouterEvent(evenement);
 				if (ajoute) {
+					if (onSuccess != null) onSuccess.run();
 					stage.close();
 				} else {
 					feedback.setText("Conflit détecté. Événement non ajouté.");

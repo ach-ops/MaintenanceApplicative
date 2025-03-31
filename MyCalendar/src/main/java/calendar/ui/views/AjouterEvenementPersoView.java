@@ -19,10 +19,13 @@ public class AjouterEvenementPersoView {
 
 	private final CalendarManager calendarManager;
 	private final Utilisateur utilisateur;
+	private final Runnable onSuccess;
 
-	public AjouterEvenementPersoView(CalendarManager calendarManager, Utilisateur utilisateur) {
+
+	public AjouterEvenementPersoView(CalendarManager calendarManager, Utilisateur utilisateur, Runnable onSuccess) {
 		this.calendarManager = calendarManager;
 		this.utilisateur = utilisateur;
+		this.onSuccess = onSuccess;
 	}
 
 	public void show() {
@@ -105,7 +108,11 @@ public class AjouterEvenementPersoView {
 
 				boolean ajoute = calendarManager.ajouterEvent(event);
 				feedback.setText(ajoute ? "Événement ajouté." : "Conflit détecté.");
-				if (ajoute) stage.close();
+				if (ajoute) {
+					if (onSuccess != null) onSuccess.run();
+					stage.close();
+				}
+
 
 			} catch (Exception ex) {
 				feedback.setText("Erreur : " + ex.getMessage());

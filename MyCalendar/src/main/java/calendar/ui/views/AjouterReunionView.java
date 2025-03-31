@@ -17,10 +17,13 @@ public class AjouterReunionView {
 
 	private final CalendarManager calendarManager;
 	private final Utilisateur utilisateur;
+	private final Runnable onSuccess;
 
-	public AjouterReunionView(CalendarManager calendarManager, Utilisateur utilisateur) {
+	public AjouterReunionView(CalendarManager calendarManager, Utilisateur utilisateur, Runnable onSuccess) {
 		this.calendarManager = calendarManager;
 		this.utilisateur = utilisateur;
+		this.onSuccess = onSuccess;
+
 	}
 
 	public void show() {
@@ -114,8 +117,10 @@ public class AjouterReunionView {
 
 				boolean ajoute = calendarManager.ajouterEvent(reunion);
 				if (ajoute) {
+					if (onSuccess != null) onSuccess.run();
 					stage.close();
-				} else {
+				}
+				else {
 					feedback.setText("Conflit détecté. Réunion non ajoutée.");
 					feedback.setStyle("-fx-text-fill: red;");
 				}

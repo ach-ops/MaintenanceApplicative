@@ -16,10 +16,12 @@ public class AjouterRdvView {
 
 	private final CalendarManager calendarManager;
 	private final Utilisateur utilisateur;
+	private final Runnable onSuccess;
 
-	public AjouterRdvView(CalendarManager calendarManager, Utilisateur utilisateur) {
+	public AjouterRdvView(CalendarManager calendarManager, Utilisateur utilisateur, Runnable onSuccess) {
 		this.calendarManager = calendarManager;
 		this.utilisateur = utilisateur;
+		this.onSuccess = onSuccess;
 	}
 
 	public void show() {
@@ -99,7 +101,11 @@ public class AjouterRdvView {
 				feedback.setStyle("-fx-text-fill: " + (ajoute ? "green" : "red") + "; -fx-font-weight: bold;");
 				feedback.setText(ajoute ? "Rendez-vous ajouté !" : "Conflit détecté. Ajout refusé.");
 
-				if (ajoute) stage.close();
+				if (ajoute) {
+					if (onSuccess != null) onSuccess.run();
+					stage.close();
+				}
+
 
 			} catch (Exception ex) {
 				feedback.setStyle("-fx-text-fill: red;");

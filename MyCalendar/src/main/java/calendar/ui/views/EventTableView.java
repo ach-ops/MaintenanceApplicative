@@ -47,7 +47,7 @@ public class EventTableView {
 		table.setRowFactory(tv -> {
 			TableRow<Event> row = new TableRow<>();
 			ContextMenu contextMenu = new ContextMenu();
-			MenuItem supprimerItem = new MenuItem("🗑 Supprimer");
+			MenuItem supprimerItem = new MenuItem("Supprimer");
 
 			supprimerItem.setOnAction(e -> {
 				Event event = row.getItem();
@@ -68,6 +68,10 @@ public class EventTableView {
 		});
 
 		refresh();
+	}
+
+	public TableView<Event> getTable() {
+		return table;
 	}
 
 	public VBox getView() {
