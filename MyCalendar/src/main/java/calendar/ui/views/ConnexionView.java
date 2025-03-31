@@ -1,7 +1,8 @@
-package calendar.ui;
+package calendar.ui.views;
 
 import calendar.app.CalendarManager;
 import calendar.objet.Utilisateur;
+import calendar.ui.App;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;

@@ -1,12 +1,16 @@
-package calendar.ui;
+package calendar.ui.views;
 
 import calendar.app.CalendarManager;
 import calendar.evenement.EvenementPersonnalise;
 import calendar.objet.*;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -25,22 +29,55 @@ public class AjouterEvenementPersoView {
 		Stage stage = new Stage();
 		stage.setTitle("Ajouter un événement personnalisé");
 
-		VBox root = new VBox(10);
-		root.setPadding(new javafx.geometry.Insets(15));
+		VBox root = new VBox(20);
+		root.setPadding(new Insets(30));
+		root.setAlignment(Pos.CENTER);
+		root.setStyle("-fx-background-color: #f5f5f5;");
+
+		Label title = new Label("Nouvel Événement Personnalisé");
+		title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+
+		GridPane form = new GridPane();
+		form.setHgap(10);
+		form.setVgap(12);
+		form.setAlignment(Pos.CENTER);
 
 		TextField titreField = new TextField();
-		titreField.setPromptText("Titre");
-
 		TextField typeField = new TextField();
-		typeField.setPromptText("Type (ex : Anniversaire, Voyage...)");
-
 		DatePicker datePicker = new DatePicker(LocalDate.now());
 		Spinner<Integer> heureSpinner = new Spinner<>(0, 23, 9);
 		Spinner<Integer> minuteSpinner = new Spinner<>(0, 59, 0);
 		Spinner<Integer> dureeSpinner = new Spinner<>(1, 240, 60);
 
+		form.add(new Label("Titre :"), 0, 0);
+		form.add(titreField, 1, 0);
+		form.add(new Label("Type :"), 0, 1);
+		form.add(typeField, 1, 1);
+		form.add(new Label("Date :"), 0, 2);
+		form.add(datePicker, 1, 2);
+		form.add(new Label("Heure :"), 0, 3);
+		form.add(heureSpinner, 1, 3);
+		form.add(new Label("Minute :"), 0, 4);
+		form.add(minuteSpinner, 1, 4);
+		form.add(new Label("Durée (min) :"), 0, 5);
+		form.add(dureeSpinner, 1, 5);
+
 		Button ajouterBtn = new Button("Ajouter");
 		Label feedback = new Label();
+		ajouterBtn.setPrefWidth(200);
+
+		String buttonStyle = """
+		-fx-background-color: #4CAF50;
+		-fx-text-fill: white;
+		-fx-font-size: 14px;
+		-fx-background-radius: 8px;
+		-fx-cursor: hand;
+	""";
+		String hoverStyle = buttonStyle.replace("#4CAF50", "#45a049");
+
+		ajouterBtn.setStyle(buttonStyle);
+		ajouterBtn.setOnMouseEntered(e -> ajouterBtn.setStyle(hoverStyle));
+		ajouterBtn.setOnMouseExited(e -> ajouterBtn.setStyle(buttonStyle));
 
 		ajouterBtn.setOnAction(e -> {
 			try {
@@ -75,17 +112,10 @@ public class AjouterEvenementPersoView {
 			}
 		});
 
-		root.getChildren().addAll(
-				new Label("Titre :"), titreField,
-				new Label("Type personnalisé :"), typeField,
-				new Label("Date :"), datePicker,
-				new Label("Heure :"), heureSpinner,
-				new Label("Minute :"), minuteSpinner,
-				new Label("Durée (min) :"), dureeSpinner,
-				ajouterBtn, feedback
-		);
+		root.getChildren().addAll(title, form, ajouterBtn, feedback);
 
-		stage.setScene(new Scene(root, 450, 480));
+		stage.setScene(new Scene(root, 460, 420));
 		stage.show();
 	}
+
 }

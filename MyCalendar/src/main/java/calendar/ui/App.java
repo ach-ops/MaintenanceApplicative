@@ -2,6 +2,9 @@ package calendar.ui;
 
 import calendar.app.CalendarManager;
 import calendar.objet.Utilisateur;
+import calendar.ui.views.ConnexionView;
+import calendar.ui.views.CreerCompteView;
+import calendar.ui.views.MenuView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
