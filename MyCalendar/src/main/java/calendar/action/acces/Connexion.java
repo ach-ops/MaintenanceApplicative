@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Connexion {
 
-	private static final ListeUtilisateurs listeUtilisateurs = new ListeUtilisateurs(List.of(
+	public static final ListeUtilisateurs listeUtilisateurs = new ListeUtilisateurs(List.of(
 			new Utilisateur("Roger", "Chat"),
 			new Utilisateur("Pierre", "KiRouhl"),
 			new Utilisateur("Achraf", "Achraf")

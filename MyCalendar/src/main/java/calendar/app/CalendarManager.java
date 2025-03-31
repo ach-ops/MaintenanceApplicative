@@ -4,6 +4,8 @@ import java.util.*;
 import calendar.evenement.*;
 import calendar.objet.*;
 
+import static calendar.action.acces.Connexion.listeUtilisateurs;
+
 public class CalendarManager {
     private final ListeEvenements listeEvenements = new ListeEvenements(new ArrayList<>());
 
@@ -32,6 +34,10 @@ public class CalendarManager {
 
     public ListeEvenements getListeEvenements() {
         return listeEvenements;
+    }
+
+    public ListeUtilisateurs getListeUtilisateurs() {
+        return listeUtilisateurs;
     }
 
     public List<Event> eventsDansPeriode(DateEvenement debut, DateEvenement fin) {
