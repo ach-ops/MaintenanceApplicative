@@ -2,9 +2,13 @@ package calendar.ui.views;
 
 import calendar.app.CalendarManager;
 import calendar.evenement.Event;
+import calendar.objet.DateEvenement;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 public class EventTableView {
 
@@ -79,6 +83,10 @@ public class EventTableView {
 	}
 
 	public void refresh() {
-		table.getItems().setAll(calendarManager.getTousLesEvenements());
+		LocalDateTime maintenant = LocalDateTime.now();
+		DateEvenement debut = new DateEvenement(maintenant.minusMonths(1));
+		DateEvenement fin = new DateEvenement(maintenant.plusMonths(9));// 9 mois
+		List<Event> affichables = calendarManager.eventsDansPeriode(debut, fin);
+		table.getItems().setAll(affichables);
 	}
 }
