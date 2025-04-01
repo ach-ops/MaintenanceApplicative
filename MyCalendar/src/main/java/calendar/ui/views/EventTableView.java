@@ -38,7 +38,7 @@ public class EventTableView {
 		dateCol.setStyle(colStyle);
 
 		TableColumn<Event, String> dureeCol = new TableColumn<>("Durée");
-		dureeCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDuree() + " min"));
+		dureeCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDuree().value() + " min"));
 		dureeCol.setStyle(colStyle);
 
 		TableColumn<Event, String> typeCol = new TableColumn<>("Type");
