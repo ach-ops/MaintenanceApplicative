@@ -1,6 +1,7 @@
 package calendar_refacto;
 
 import calendar.app.CalendarManager;
+import calendar.evenement.EvenementPeriodique;
 import calendar.evenement.Event;
 import calendar.objet.*;
 import org.junit.jupiter.api.Test;
@@ -209,6 +210,25 @@ public class CalendarManagerTest {
 		List<Event> events = newCalendarManager.getTousLesEvenements();
 		assertEquals(1, events.size(), "L'événement en conflit ne devrait pas être ajouté.");
 		assertEquals("RDV Conflit", events.get(0).getTitre().value(), "L'événement initial devrait être présent.");
+	}
+
+
+	@Test
+	void testOccurrencesEvenementPeriodique() {
+		EvenementPeriodique evenement = new EvenementPeriodique(
+				new EventId("evt-rep-01"),
+				new TitreEvenement("Cours de yoga"),
+				new DateEvenement(LocalDateTime.of(2025, 4, 1, 9, 0)),
+				new DureeEvenement(60),
+				new Proprietaire(new Utilisateur("Alice", "pass")),
+				new FrequenceEvenement(2)
+		);
+
+		DateEvenement debut = new DateEvenement(LocalDateTime.of(2025, 4, 1, 0, 0));
+		DateEvenement fin = new DateEvenement(LocalDateTime.of(2025, 4, 10, 23, 59));
+
+		List<Event> occurrences = evenement.occurrencesDansPeriode(debut, fin);
+		assertEquals(5, occurrences.size());  // 1, 3, 5, 7, 9 avril
 	}
 
 }
