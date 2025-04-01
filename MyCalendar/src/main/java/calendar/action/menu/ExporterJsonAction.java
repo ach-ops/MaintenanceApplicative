@@ -2,7 +2,6 @@ package calendar.action.menu;
 
 import calendar.action.Action;
 import calendar.app.CalendarManager;
-import calendar.app.ExporterJson;
 
 import java.util.Scanner;
 
@@ -21,7 +20,6 @@ public class ExporterJsonAction implements Action<Boolean> {
 		System.out.print("Entrez le nom du fichier à exporter (sans extension) : ");
 		String nomFichier = scanner.nextLine();
 
-		// Utiliser le service ExporterJson pour exporter les événements
 		calendar.exporterVersJson(nomFichier);
 
 		return true;

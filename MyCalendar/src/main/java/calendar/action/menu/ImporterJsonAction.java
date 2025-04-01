@@ -2,6 +2,7 @@ package calendar.action.menu;
 
 import calendar.action.Action;
 import calendar.app.CalendarManager;
+import calendar.objet.ImportResult;
 
 import java.util.Scanner;
 
@@ -20,9 +21,10 @@ public class ImporterJsonAction implements Action<Boolean> {
 		System.out.print("Entrez le nom du fichier à importer (sans extension) : ");
 		String nomFichier = scanner.nextLine();
 
-		calendar.importerDepuisJson(nomFichier);
+		ImportResult result = calendar.importerDepuisJson(nomFichier);
+		System.out.println(result.messageUtilisateur());
 
-		return true;
+		return result.contientImport();
 	}
 
 	@Override

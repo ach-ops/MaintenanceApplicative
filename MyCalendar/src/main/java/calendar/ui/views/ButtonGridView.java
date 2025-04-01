@@ -1,6 +1,7 @@
 package calendar.ui.views;
 
 import calendar.app.CalendarManager;
+import calendar.objet.ImportResult;
 import calendar.objet.Utilisateur;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -77,11 +78,17 @@ public class ButtonGridView {
 			fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers JSON", "*.json"));
 			File file = fc.showOpenDialog(view.getScene().getWindow());
 			if (file != null) {
-				calendarManager.importerDepuisJson(file.getAbsolutePath());
+				ImportResult result = calendarManager.importerDepuisJson(file.getAbsolutePath());
 				refresh();
-				alert("Événements importés !");
+
+				Alert alert = new Alert(result.contientImport() ? Alert.AlertType.INFORMATION : Alert.AlertType.WARNING);
+				alert.setTitle("Résultat de l'import");
+				alert.setHeaderText(null);
+				alert.setContentText(result.messageUtilisateur());
+				alert.showAndWait();
 			}
 		});
+
 
 		int col = 0, row = 0;
 		for (Button b : buttons) {

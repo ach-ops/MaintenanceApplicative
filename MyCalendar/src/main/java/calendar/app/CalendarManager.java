@@ -1,12 +1,9 @@
 package calendar.app;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import calendar.evenement.*;
 import calendar.objet.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import static calendar.action.acces.Connexion.listeUtilisateurs;
 
@@ -63,16 +60,34 @@ public class CalendarManager {
         }
     }
 
-    public void importerDepuisJson(String cheminComplet) {
+    public ImportResult importerDepuisJson(String cheminComplet) {
+        int total = 0;
+        int ajoutes = 0;
+
         try {
             List<Event> events = ImporterJson.importer(cheminComplet);
+            total = events.size();
+
             for (Event event : events) {
-                ajouterEvent(event);
+                if (ajouterEvent(event)) {
+                    ajoutes++;
+                }
             }
+
+            int conflits = total - ajoutes;
+            QuantiteEvenements qAjoutes = new QuantiteEvenements(ajoutes);
+            QuantiteEvenements qConflits = new QuantiteEvenements(conflits);
+
+            if (ajoutes == 0) return new ImportEchoue();
+            if (conflits == 0) return new ImportReussi(qAjoutes);
+            return new ImportAvecConflits(qAjoutes, qConflits);
+
         } catch (IOException e) {
-            System.err.println("Erreur import JSON : " + e.getMessage());
+            return new ImportEchoue();
         }
     }
+
+
 
 
 
