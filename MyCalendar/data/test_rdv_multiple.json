@@ -1,32 +1,43 @@
-[
-  {
-    "type": "rendezvous",
-    "id": { "value": "evt-201" },
-    "titre": { "value": "RDV A" },
-    "date": { "value": "2025-04-10T09:00:00" },
-    "duree": { "value": 60 },
-    "proprietaire": {
-      "utilisateur": { "identifiant": "Alice", "motDePasse": "passA" }
-    }
+[ {
+  "type" : "rendezvous",
+  "id" : "Achraf_6094578a-d826-46cc-b5d3-8782ffd28cf6",
+  "titre" : "RDV A",
+  "date" : "2025-04-01T09:00:00",
+  "duree" : {
+    "value" : 30
   },
-  {
-    "type": "rendezvous",
-    "id": { "value": "evt-202" },
-    "titre": { "value": "RDV B" },
-    "date": { "value": "2025-04-11T10:30:00" },
-    "duree": { "value": 30 },
-    "proprietaire": {
-      "utilisateur": { "identifiant": "Bob", "motDePasse": "passB" }
-    }
-  },
-  {
-    "type": "rendezvous",
-    "id": { "value": "evt-203" },
-    "titre": { "value": "RDV C" },
-    "date": { "value": "2025-04-12T15:45:00" },
-    "duree": { "value": 90 },
-    "proprietaire": {
-      "utilisateur": { "identifiant": "Charlie", "motDePasse": "passC" }
+  "proprietaire" : {
+    "utilisateur" : {
+      "identifiant" : "Achraf",
+      "motDePasse" : "Achraf"
     }
   }
-]
+}, {
+  "type" : "rendezvous",
+  "id" : "Achraf_f7d63413-a457-4497-b94f-a8da3370a97d",
+  "titre" : "RDV B",
+  "date" : "2025-04-02T09:00:00",
+  "duree" : {
+    "value" : 30
+  },
+  "proprietaire" : {
+    "utilisateur" : {
+      "identifiant" : "Achraf",
+      "motDePasse" : "Achraf"
+    }
+  }
+}, {
+  "type" : "rendezvous",
+  "id" : "Achraf_c7b82089-a039-4f00-9b63-63c2fd890a97",
+  "titre" : "RDV C",
+  "date" : "2025-04-03T09:00:00",
+  "duree" : {
+    "value" : 30
+  },
+  "proprietaire" : {
+    "utilisateur" : {
+      "identifiant" : "Achraf",
+      "motDePasse" : "Achraf"
+    }
+  }
+} ]

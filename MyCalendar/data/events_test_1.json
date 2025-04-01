@@ -1,9 +1,9 @@
 [
   {
     "type": "rendezvous",
-    "id": { "value": "evt-124" },
-    "titre": { "value": "RDV Importé" },
-    "date": { "value": "2025-05-21T11:00:00" },
+    "id":  "evt-124" ,
+    "titre": "RDV Importé" ,
+    "date":  "2025-05-21T11:00:00" ,
     "duree": { "value": 90 },
     "proprietaire": {
       "utilisateur": { "identifiant": "Achraf", "motDePasse": "mdp" }

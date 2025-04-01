@@ -1,8 +1,12 @@
 package calendar.app;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import calendar.evenement.*;
 import calendar.objet.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import static calendar.action.acces.Connexion.listeUtilisateurs;
 
@@ -61,10 +65,15 @@ public class CalendarManager {
 
     public void importerDepuisJson(String cheminComplet) {
         try {
-            ImporterJson.importer(listeEvenements, cheminComplet);
-        } catch (Exception e) {
+            List<Event> events = ImporterJson.importer(cheminComplet);
+            for (Event event : events) {
+                ajouterEvent(event);
+            }
+        } catch (IOException e) {
             System.err.println("Erreur import JSON : " + e.getMessage());
         }
     }
+
+
 
 }

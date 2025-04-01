@@ -11,30 +11,14 @@ import java.util.List;
 
 public class ImporterJson {
 
-	public static void importer(ListeEvenements listeEvenements, String nomFichier) {
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			mapper.registerModule(new JavaTimeModule());
+	public static List<Event> importer(String nomFichier) throws IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new JavaTimeModule());
 
-			File fichier;
+		File fichier = nomFichier.contains(File.separator) ? new File(nomFichier) : new File("data/" + nomFichier);
 
-			if (nomFichier.contains(File.separator)) {
-				fichier = new File(nomFichier);
-			} else {
-				fichier = new File("data/" + nomFichier);
-			}
-
-			List<Event> events = mapper.readValue(fichier,
-					mapper.getTypeFactory().constructCollectionType(List.class, Event.class));
-
-			for (Event event : events) {
-				listeEvenements.ajouter(event);
-			}
-
-			System.out.println("Événements importés depuis : " + fichier.getAbsolutePath());
-
-		} catch (IOException e) {
-			System.err.println("Erreur lors de l'import des événements : " + e.getMessage());
-		}
+		return mapper.readValue(fichier,
+				mapper.getTypeFactory().constructCollectionType(List.class, Event.class));
 	}
+
 }

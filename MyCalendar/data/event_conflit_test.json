@@ -1,0 +1,15 @@
+[ {
+  "type" : "rendezvous",
+  "id" : "evt-125",
+  "titre" : "RDV Conflit",
+  "date" : "2025-05-22T10:00:00",
+  "duree" : {
+    "value" : 60
+  },
+  "proprietaire" : {
+    "utilisateur" : {
+      "identifiant" : "Achraf",
+      "motDePasse" : "mdp"
+    }
+  }
+} ]
