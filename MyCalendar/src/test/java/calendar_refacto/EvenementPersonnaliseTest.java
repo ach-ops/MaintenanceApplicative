@@ -39,7 +39,7 @@ public class EvenementPersonnaliseTest {
 		assertEquals(titre, event.getTitre());
 		assertEquals(date, event.getDate());
 		assertEquals(duree, event.getDuree());
-		assertEquals("Achraf", event.getProprietaire().utilisateur().identifiant());
+		assertEquals("Achraf", event.getProprietaire().getUtilisateur().identifiant());
 	}
 
 	@Test

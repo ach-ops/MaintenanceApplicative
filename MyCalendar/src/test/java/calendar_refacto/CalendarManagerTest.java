@@ -182,5 +182,33 @@ public class CalendarManagerTest {
 		assertTrue(events.stream().anyMatch(e -> e.getTitre().value().equals("RDV Importé")));
 	}
 
+	@Test
+	void testImportEvenementConflit() {
+		CalendarManager calendarManager = new CalendarManager();
+		Event evenement = new RendezVous(
+				new EventId("evt-125"),
+				new TitreEvenement("RDV Conflit"),
+				new DateEvenement(LocalDateTime.of(2025, 5, 22, 10, 0)),
+				new DureeEvenement(60),
+				new Proprietaire(new Utilisateur("Achraf", "mdp"))
+		);
+
+		// Ajouter l'événement initial
+		calendarManager.ajouterEvent(evenement);
+		assertEquals(1, calendarManager.getTousLesEvenements().size());
+
+		// Exporter l'événement dans un fichier JSON
+		String nomFichier = "event_conflit_test.json";
+		calendarManager.exporterVersJson(nomFichier);
+
+		// Réimporter le fichier JSON
+		CalendarManager newCalendarManager = new CalendarManager();
+		newCalendarManager.importerDepuisJson(nomFichier);
+
+		// Vérifier que l'événement n'a pas été ajouté en raison du conflit
+		List<Event> events = newCalendarManager.getTousLesEvenements();
+		assertEquals(1, events.size(), "L'événement en conflit ne devrait pas être ajouté.");
+		assertEquals("RDV Conflit", events.get(0).getTitre().value(), "L'événement initial devrait être présent.");
+	}
 
 }
